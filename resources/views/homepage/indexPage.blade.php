@@ -15,13 +15,13 @@
 
 @include('partials.values')
 
-@include('partials.reviews')
-
 @include('partials.brands-tabs')
 
 @include('partials.coffee')
 
+{{-- Hidden for now — kept for future use.
 @include('partials.businesses')
+--}}
 
 @include('partials.news')
 

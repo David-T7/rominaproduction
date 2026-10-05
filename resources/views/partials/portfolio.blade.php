@@ -9,19 +9,30 @@
         <!-- Portfolio Header -->
         <div class="portfolio-header">
 
-            <p class="mark tone-white">
-                <span class="mark-rule"></span>
-                <i aria-hidden="true"></i>
-                Business portfolio
-            </p>
+            <div>
+                <p class="mark tone-white">
+                    <span class="mark-rule"></span>
+                    <i aria-hidden="true"></i>
+                    Our Businesses
+                </p>
 
-            <h2 class="t-h2 light">Four sectors, built from one restaurant.</h2>
+                <h2 class="t-h2 light">Our Diversified Portfolio</h2>
+            </div>
+
+            <div class="ac-arrows ac-arrows--on-dark portfolio-arrows" role="group" aria-label="Browse businesses">
+                <button class="portfolio-prev" aria-label="Previous business" disabled>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="portfolio-next" aria-label="Next business">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
 
         </div>
 
 
         <!-- Portfolio Slider -->
-        <div class="portfolio-slider-wrapper">
+        <div class="portfolio-slider-wrapper" tabindex="0" aria-label="Our businesses">
 
             <div class="portfolio-track">
 
@@ -31,14 +42,14 @@
 
                     <div class="portfolio-image">
 
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="{{ asset('images/portfolio/restaurant.webp') }}"
                             alt="Romina Restaurant interior, evening service"
                         >
 
-                        <div class="portfolio-image-caption">
-                            Romina Restaurant interior, evening service
-                        </div>
+                        {{-- <div class="portfolio-image-caption">
+                            Romina Restaurant, evening service
+                        </div> --}}
 
                     </div>
 
@@ -50,28 +61,28 @@
                         </span>
 
                         <h3>
-                            Restaurant management
-                            &amp; hospitality
+                            Restaurant Management
+                            &amp; Hospitality
                         </h3>
 
                         <p>
-                            Home-styled dishes, warm service and
-                            three distinct culinary brands across
+                            Home-styled Dishes, Warm Service and
+                            Distinct Culinary Brands across
                             Addis Ababa.
                         </p>
 
 
-                        <div class="portfolio-pills">
+                        {{-- <div class="portfolio-pills">
 
                             <span>Romina Restaurants</span>
                             <span>KOBA</span>
                             <span>Meskott</span>
 
-                        </div>
+                        </div> --}}
 
 
-                        <a href="#brands" class="portfolio-link">
-                            Explore our restaurants
+                        <a href="businesses/romina-restaurants" class="portfolio-link">
+                            Explore our Restaurant
                             <span><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
 
@@ -85,14 +96,14 @@
 
                     <div class="portfolio-image">
 
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="{{ asset('images/portfolio/coffee.jpg') }}"
                             alt="Romina Coffee"
                         >
 
-                        <div class="portfolio-image-caption">
+                        {{-- <div class="portfolio-image-caption">
                             Romina Coffee, crafted for everyday moments
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -104,27 +115,25 @@
                         </span>
 
                         <h3>
-                            Coffee &amp; beverage
-                            experiences
+                            Coffee Experiences
                         </h3>
 
                         <p>
-                            Thoughtfully sourced coffee, distinctive
+                            Thoughtfully Sourced Coffee, Distinctive
                             spaces and a growing culture built around
                             every cup.
                         </p>
 
 
-                        <div class="portfolio-pills">
+                        {{-- <div class="portfolio-pills">
 
                             <span>Romina Coffee</span>
-                            <span>Specialty Coffee</span>
                             <span>Retail</span>
 
-                        </div>
+                        </div> --}}
 
 
-                        <a href="#brands" class="portfolio-link">
+                        <a href="/businesses/romina-coffee" class="portfolio-link">
                             Explore Romina Coffee
                             <span><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
@@ -139,14 +148,14 @@
 
                     <div class="portfolio-image">
 
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="{{ asset('images/portfolio/jaguar.jpg') }}"
                             alt="Business investment and ventures"
                         >
 
-                        <div class="portfolio-image-caption">
+                        {{-- <div class="portfolio-image-caption">
                             Building the next generation of businesses
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -162,21 +171,21 @@
                         </h3>
 
                         <p>
-                            Spaces designed for people and business
+                            Spaces Designed for People and Business
                         </p>
 
 
-                        <div class="portfolio-pills">
+                        {{-- <div class="portfolio-pills">
 
                             <span>Investments</span>
                             <span>New Ventures</span>
                             <span>Partnerships</span>
 
-                        </div>
+                        </div> --}}
 
 
-                        <a href="#brands" class="portfolio-link">
-                            Explore our ventures
+                        <a href="/businesses/jaquar-world" class="portfolio-link">
+                            Explore our Appliances
                             <span><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
 
@@ -190,16 +199,16 @@
 
                     <div class="portfolio-image">
 
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="{{ asset('images/portfolio/baked.jpg') }}"
                             alt="Business property and real estate"
                         >
 
-                        <div class="portfolio-image-caption">
+                        {{-- <div class="portfolio-image-caption">
                             Identifying opportunities, supporting
                             entrepreneurs and building businesses
                             with long-term potential.
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -211,7 +220,7 @@
                         </span>
 
                         <h3>
-                            Patisseries
+                            Cakes &amp; Pastry
                         </h3>
 
                         <p>
@@ -220,17 +229,17 @@
                         </p>
 
 
-                        <div class="portfolio-pills">
+                        {{-- <div class="portfolio-pills">
 
                             <span>Patisseries</span>
                             <span>Passion</span>
                             <span>Cake</span>
 
-                        </div>
+                        </div> --}}
 
 
-                        <a href="#brands" class="portfolio-link">
-                            Explore our properties
+                        <a href="/businesses/koba-patisserie" class="portfolio-link">
+                            Explore our Pastries
                             <span><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
 

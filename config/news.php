@@ -33,7 +33,7 @@ return [
             'title'    => 'An evening of Ethiopian coffee: our annual cupping night',
             'category' => 'events',
             'date'     => '2026-09-20',
-            'image'    => 'images/coffee/green-beans.jpg',
+            'image'    => 'images/coffee/cupping-table.webp',
             'excerpt'  => 'Guests, partners and buyers joined our coffee team to taste this season\'s lots from across Ethiopia\'s growing regions.',
             'body'     => [
                 'Romina Coffee welcomed partners, buyers and friends of the Group for an evening of cupping, bringing together lots from several of Ethiopia\'s best-known growing regions.',
@@ -107,7 +107,7 @@ return [
             'title'    => 'Inside our hand-sorting quality programme',
             'category' => 'coffee-harvest',
             'date'     => '2026-03-08',
-            'image'    => 'images/coffee/hand-sorting.jpg',
+            'image'    => 'images/coffee/sorting-line.webp',
             'excerpt'  => 'A look at the meticulous hand-sorting process that helps ensure every bean meets our standard.',
             'body'     => [
                 'Quality begins long before the cup. At Romina Coffee, hand-sorting is a core part of how we ensure every bean that carries our name meets the standard our customers expect.',
@@ -123,7 +123,7 @@ return [
             'title'    => 'Romina Coffee earns Rainforest Alliance recognition',
             'category' => 'awards',
             'date'     => '2026-09-12',
-            'image'    => 'images/business/coffee.jpg',
+            'image'    => 'images/coffee/green-beans-burlap.webp',
             'excerpt'  => 'Our coffee arm is recognised for sustainable farming practices that protect the land and support smallholder farmers across Ethiopia.',
             'body'     => [
                 'Romina Coffee has been recognised by the Rainforest Alliance for its commitment to sustainable and responsible farming across Ethiopia\'s coffee-growing regions.',
@@ -153,7 +153,7 @@ return [
             'title'    => 'Four schools built in remote coffee-growing communities',
             'category' => 'csr',
             'date'     => '2026-07-15',
-            'image'    => 'images/hero/hero-01.jpg',
+            'image'    => 'images/stock/classroom.webp',
             'excerpt'  => 'As part of our CSR commitment, four new schools are improving access to education in the regions where our coffee is grown.',
             'body'     => [
                 'Romina Group has completed the construction of four schools in remote coffee-growing communities, expanding access to education for children in regions that have historically been under-served.',
@@ -167,7 +167,7 @@ return [
             'title'    => 'New potable-water site brings clean water closer to home',
             'category' => 'csr',
             'date'     => '2026-04-02',
-            'image'    => 'images/hero/hero-03.jpg',
+            'image'    => 'images/stock/clean-water.webp',
             'excerpt'  => 'A new water site serves families in one of the communities that grow our coffee.',
             'body'     => [
                 'A new potable-water site is now serving families in one of Romina Coffee\'s growing communities, bringing clean water within reach for households that previously travelled far to collect it.',
@@ -183,7 +183,7 @@ return [
             'title'    => 'Signature Agelgel lunch, now at Romina Restaurants',
             'category' => 'restaurant-promotions',
             'date'     => '2026-09-05',
-            'image'    => 'images/business/restaurant.jpg',
+            'image'    => 'images/business/restaurant.webp',
             'excerpt'  => 'Our signature Agelgel is available as a weekday lunch special at Arat Kilo and Balderas.',
             'body'     => [
                 'Romina Restaurants is celebrating one of its most-loved dishes with a weekday Agelgel lunch special, available at both our Arat Kilo and Balderas locations.',
@@ -197,7 +197,7 @@ return [
             'title'    => 'Weekend brunch arrives in the Meskott street food garden',
             'category' => 'restaurant-promotions',
             'date'     => '2026-06-20',
-            'image'    => 'images/portfolio/restaurant.jpg',
+            'image'    => 'images/portfolio/restaurant.webp',
             'excerpt'  => 'Slow Saturdays and Sundays with brunch plates, fresh juices and coffee in the garden.',
             'body'     => [
                 'Meskott Culinary Experience now hosts weekend brunch in its street food garden, with brunch plates, fresh juices and specialty coffee.',

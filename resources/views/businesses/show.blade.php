@@ -24,6 +24,11 @@
 {{-- KOBA has its own hero / about / showcase (Kubo-inspired, with scroll effects) --}}
 @include('businesses.partials.koba')
 
+@elseif ($brandSlug === 'bacio-cremeria')
+
+{{-- Bacio has its own page sections and uses the shared business gallery. --}}
+@include('businesses.partials.bacio')
+
 @else
 
 {{-- ============ HERO — split: story left, framed photo right ============ --}}
@@ -188,77 +193,8 @@
 @endif
 
 
-{{-- ============ GALLERY — photo mosaic + lightbox ============
-     Tiles come from $gallery (see PagesController::businessGallery):
-     drop photos into public/images/gallery/{slug}/ to add more. --}}
-@if ($brand['show_gallery'] ?? true)
-@php
-    $tileCount  = count($gallery);
-    $photoCount = count(array_filter($gallery, function ($g) { return !empty($g['src']); }));
-@endphp
-<section class="bz-gallery">
-    <div class="container">
-
-        <div class="bz-gallery-head">
-            <div class="bz-section-head">
-                <span class="bz-label">Gallery</span>
-                <h2>A closer look.</h2>
-            </div>
-            @if ($photoCount)
-                <p class="bz-gallery-hint">
-                    <i class="fa-regular fa-images" aria-hidden="true"></i>
-                    {{ $photoCount }} {{ $photoCount === 1 ? 'photo' : 'photos' }} · click to enlarge
-                </p>
-            @endif
-        </div>
-
-        <ul class="bz-mosaic">
-            @foreach ($gallery as $i => $shot)
-                <li class="bz-tile{{ $shot['src'] ? '' : ' bz-tile--ph' }}">
-
-                    @if ($shot['src'])
-                        <button type="button" class="bz-tile-btn"
-                                data-full="{{ asset($shot['src']) }}"
-                                data-caption="{{ $shot['caption'] }}"
-                                aria-label="Enlarge photo: {{ $shot['caption'] }}">
-                            <img src="{{ asset($shot['src']) }}" alt="{{ $shot['shot'] }}" loading="lazy">
-                            <span class="bz-tile-zoom" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
-                            <span class="bz-tile-overlay" aria-hidden="true">
-                                <span class="bz-tile-index">{{ sprintf('%02d', $i + 1) }} / {{ sprintf('%02d', $tileCount) }}</span>
-                                <span class="bz-tile-caption">{{ $shot['caption'] }}</span>
-                                @if ($shot['shot'] !== $shot['caption'])
-                                    <span class="bz-tile-shot">{{ $shot['shot'] }}</span>
-                                @endif
-                            </span>
-                        </button>
-                    @else
-                        <div class="bz-ph">
-                            <span class="bz-ph-note"><i class="fa-regular fa-image" aria-hidden="true"></i> Photo coming soon</span>
-                            <span class="bz-ph-shot">{{ $shot['shot'] }}</span>
-                            <span class="bz-tile-caption">{{ $shot['caption'] }}</span>
-                        </div>
-                    @endif
-
-                </li>
-            @endforeach
-        </ul>
-
-    </div>
-</section>
-
-{{-- Lightbox (one per page, filled by JS) --}}
-<div class="bz-lightbox" id="bzLightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
-    <button type="button" class="bz-lb-btn bz-lb-close" aria-label="Close photo viewer"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
-    <button type="button" class="bz-lb-btn bz-lb-prev" aria-label="Previous photo"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
-    <figure class="bz-lb-figure">
-        <img class="bz-lb-img" src="" alt="">
-        <figcaption class="bz-lb-caption">
-            <span class="bz-lb-count"></span>
-            <span class="bz-lb-text"></span>
-        </figcaption>
-    </figure>
-    <button type="button" class="bz-lb-btn bz-lb-next" aria-label="Next photo"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-</div>
+@if ($brandSlug !== 'bacio-cremeria')
+@include('businesses.partials.gallery')
 @endif
 
 
@@ -304,14 +240,21 @@
 {{-- ============ OUR BRANDS (Romina Imports only) ============ --}}
 @if ($brandSlug === 'romina-imports' && !empty($brand['import_brands']))
 @php
-    $importBrands = $brand['import_brands'];
+    $importBrands = collect($brand['import_brands'])->unique('category')->values()->all();
+    $importCategoryIcons = [
+        'Pasta' => 'fa-wheat-awn',
+        'Rice' => 'fa-bowl-rice',
+        'Dairy' => 'fa-cow',
+        'Edible Oils' => 'fa-bottle-droplet',
+        'Bakery' => 'fa-bread-slice',
+    ];
     $importCats   = array_values(array_unique(array_map(fn ($b) => $b['category'], $importBrands)));
 
-    // Hex "molecule" grid — rows of 3 / 3 / 2, alternating half-step offset.
+    // Hex "molecule" grid — one circle per category, alternating half-step offset.
     // Positions are expressed in diameters (D); CSS multiplies by --sz.
-    $rows  = [3, 3, 2];
-    $hStep = 0.96;   // horizontal step  (× D)
-    $vStep = 0.84;   // vertical step    (× D)
+    $rows  = array_map('count', array_chunk($importBrands, 3));
+    $hStep = 1.22;   // horizontal step  (× D)
+    $vStep = 1.10;   // vertical step    (× D)
     $cells = [];
     foreach ($rows as $r => $count) {
         $rowOffset = ($r % 2) * ($hStep / 2);
@@ -380,20 +323,23 @@
                     <a class="rib-badge" role="listitem" data-cat="{{ $b['category'] }}"
                        style="{{ $vars }}"
                        href="{{ $b['link'] }}" target="_blank" rel="noopener"
-                       aria-label="{{ $b['name'] }} — {{ $b['category'] }}">
+                       aria-label="{{ !empty($b['logo']) ? $b['name'] . ' — ' . $b['category'] : $b['category'] }}">
                 @else
                     <button type="button" class="rib-badge" role="listitem" data-cat="{{ $b['category'] }}"
                             style="{{ $vars }}"
-                            aria-label="{{ $b['name'] }} — {{ $b['category'] }}">
+                            aria-label="{{ !empty($b['logo']) ? $b['name'] . ' — ' . $b['category'] : $b['category'] }}">
                 @endif
                     <span class="rib-badge-face">
                         @if (!empty($b['logo']))
                             <img src="{{ asset($b['logo']) }}" alt="{{ $b['name'] }}" loading="lazy">
                         @else
-                            <span class="rib-badge-name">{{ $b['name'] }}</span>
+                            <span class="rib-category-art">
+                                <i class="fa-solid {{ $importCategoryIcons[$b['category']] ?? 'fa-box-open' }}" aria-hidden="true"></i>
+                                <span class="rib-category-label">{{ $b['category'] }}</span>
+                            </span>
                         @endif
                     </span>
-                    <span class="rib-badge-tip" aria-hidden="true">{{ $b['name'] }}</span>
+                    <span class="rib-badge-tip" aria-hidden="true">{{ !empty($b['logo']) ? $b['name'] : $b['category'] }}</span>
                 @if (!empty($b['link']))
                     </a>
                 @else
@@ -767,6 +713,52 @@
 </script>
 @endif
 
+@if ($brandSlug === 'bacio-cremeria')
+<script>
+/* =====================================================
+   BACIO — scroll reveal + a gentle pointer tilt on the hero frame.
+   Reveal: elements marked .bc-reveal fade/rise in as they enter view
+   (staggered by their --i). The hero photo tilts slightly toward the
+   pointer on fine-pointer devices. Both honour reduced-motion.
+===================================================== */
+(function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- scroll reveal ---- */
+    var items = Array.prototype.slice.call(document.querySelectorAll('.bc-reveal'));
+    if (items.length && !reduced && 'IntersectionObserver' in window) {
+        items.forEach(function (el) { el.classList.add('is-armed'); });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                var i = parseInt(e.target.style.getPropertyValue('--i'), 10) || 0;
+                setTimeout(function () { e.target.classList.add('is-in'); }, i * 80);
+                io.unobserve(e.target);
+            });
+        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+        items.forEach(function (el) { io.observe(el); });
+    }
+
+    /* ---- hero frame pointer tilt (fine pointers only) ---- */
+    var tilt = document.querySelector('[data-bc-tilt]');
+    var frame = tilt && tilt.querySelector('.bc-frame');
+    if (frame && !reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        frame.style.transition = 'transform .3s ease';
+        frame.style.willChange = 'transform';
+        tilt.addEventListener('pointermove', function (e) {
+            var r = tilt.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width - 0.5;
+            var py = (e.clientY - r.top) / r.height - 0.5;
+            frame.style.transform = 'perspective(900px) rotateX(' + (-py * 4).toFixed(2) + 'deg) rotateY(' + (px * 5).toFixed(2) + 'deg)';
+        });
+        tilt.addEventListener('pointerleave', function () {
+            frame.style.transform = '';
+        });
+    }
+}());
+</script>
+@endif
+
 <script>
 /* =====================================================
    BRAND STATS — count-up + journey reveal
@@ -959,6 +951,23 @@
             if (on) { active = active.filter(function (c) { return c !== cat; }); }
             else if (active.indexOf(cat) === -1) { active.push(cat); }
             apply();
+
+            if (window.matchMedia('(max-width: 640px)').matches) {
+                var badge = badges.find(function (b) {
+                    return b.getAttribute('data-cat') === cat;
+                });
+                if (badge) {
+                    badge.focus({ preventScroll: true });
+                    var badgeRect = badge.getBoundingClientRect();
+                    var clusterRect = cluster.getBoundingClientRect();
+                    var targetLeft = cluster.scrollLeft + badgeRect.left - clusterRect.left
+                        - (cluster.clientWidth - badgeRect.width) / 2;
+                    cluster.scrollTo({
+                        left: targetLeft,
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                    });
+                }
+            }
         });
     });
 

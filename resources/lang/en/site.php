@@ -22,7 +22,7 @@ return [
     // ── About mega-menu ───────────────────────────────────────────────────
     'mega_about_label'       => 'ABOUT ROMINA',
     'mega_about_heading'     => 'Five decades<br>of building together.',
-    'mega_about_text'        => 'From a single restaurant in Arat Kilo to a diversified Ethiopian group, since 1973.',
+    'mega_about_text'        => 'From a single restaurant in 4 Kilo to a diversified Ethiopian group, since 1973.',
     'mega_about_history_col' => 'Our History',
     'mega_about_story_link'  => 'Our Story',
     'mega_about_lead_col'    => 'Our Leadership',
@@ -66,7 +66,7 @@ return [
     'about_heading'          => "Find out all about Romina's<br>corporate business.",
     'about_amh'              => 'እንኳን ደህና መጡ',
     'about_sub'              => 'Welcome to Romina Group',
-    'about_body'             => 'Founded in 1973 by Girma Taye as a small restaurant in Arat Kilo, Romina has grown over five decades into a diversified Ethiopian enterprise, through strategic expansion, successful partnerships and an unwavering commitment to excellence.',
+    'about_body'             => 'Founded in 1973 by Girma Taye as a small restaurant in 4 Kilo, Romina has grown over five decades into a diversified Ethiopian enterprise, through strategic expansion, successful partnerships and an unwavering commitment to excellence.',
 
     // ── Timeline node titles ──────────────────────────────────────────────
     'tl_0_title'             => 'Where it began',
@@ -74,14 +74,20 @@ return [
     'tl_2_title'             => 'Jaquar World',
     'tl_3_title'             => 'KOBA',
     'tl_4_title'             => 'Romina Group',
+    'tl_5_title'             => 'Bacio',
+    'tl_6_title'             => 'Meskott',
+    'tl_7_title'             => 'Coffee Roastery',
 
     // ── Timeline detail texts ─────────────────────────────────────────────
-    'tl_0_text'              => 'Girma Taye opens a small, cherished restaurant in Arat Kilo, in the heart of Addis Ababa.',
+    'tl_0_text'              => 'Girma Taye opens a small, cherished restaurant in 4 Kilo, in the heart of Addis Ababa.',
     'tl_1_text'              => 'Romina Coffee launches, taking Ethiopian Arabica to Europe, the USA, Asia and the Middle East.',
     'tl_2_text'              => 'A partnership between Jaquar Group and Romina Group opens Jaquar World Addis Ababa.',
     'tl_3_text'              => 'KOBA Patisserie & Bakery is established, built on craftsmanship and artisan baking.',
     'tl_4_text'              => 'A diversified Ethiopian group spanning hospitality, coffee export, international trading, importing and distribution.',
     'tl_4_year'              => 'Today',
+    'tl_5_text'              => 'Bacio Cremeria joins the Group, adding handcrafted gelato and desserts to our hospitality brands.',
+    'tl_6_text'              => 'Meskott Culinary opens, bringing fine dining and international cuisine to Addis Ababa.',
+    'tl_7_text'              => 'Our coffee roastery opens at KOBA Peacock, an elevated specialty coffee experience.',
 
     // ── Values (Why choose Romina) ────────────────────────────────────────
     'val_0_name'             => 'Excellence',

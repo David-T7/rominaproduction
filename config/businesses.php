@@ -63,7 +63,7 @@ return [
                 ['src' => 'images/business/restaurant.webp', 'shot' => 'A signature plate from the kitchen', 'caption' => 'From our kitchen'],
                 ['src' => null, 'shot' => 'Balderas dining room, evening service',     'caption' => 'Balderas'],
                 ['src' => null, 'shot' => 'Signature Agelgel, plated on the pass',     'caption' => 'Signature Agelgel'],
-                ['src' => null, 'shot' => 'Arat Kilo restaurant, bar and cafe',        'caption' => 'Arat Kilo'],
+                ['src' => null, 'shot' => '4 Kilo restaurant, bar and cafe',        'caption' => '4 Kilo'],
                 ['src' => null, 'shot' => 'Chef finishing a European dish',            'caption' => 'European dishes'],
                 ['src' => null, 'shot' => 'Traditional Ethiopian platter, shared',     'caption' => 'Ethiopian classics'],
                 ['src' => null, 'shot' => 'Takeaway counter at Balderas',              'caption' => 'Takeaway center'],
@@ -123,7 +123,7 @@ return [
                 ['name' => '4 Kilo', 'desc' => 'Pastry & bakery takeaway center',     'tag' => null],
                 ['name' => 'Sandford',  'desc' => 'Pastry, bakery, meals & drinks cafe', 'tag' => null],
                 ['name' => 'Atlas',     'desc' => 'Pastry, bakery, meals & drinks cafe', 'tag' => null],
-                ['name' => 'Peacock',   'desc' => 'Elevated coffee roastery experience', 'tag' => 'Flagship'],
+                ['name' => 'Peacock',   'desc' => 'Elevated coffee roastery experience', 'tag' => null],
                 ['name' => 'ICS',       'desc' => 'Pastry, bakery, meals & drinks cafe', 'tag' => 'Coming soon'],
             ],
             'phone'      => '+251 900 989 898',
@@ -172,6 +172,51 @@ return [
                 ['name' => '4 Kilo', 'desc' => 'King George VI Street, opposite Menelik II School, ground floor, Sellassie Twin Towers', 'tag' => null],
             ],
             'phone'      => '+251 90 387 9999',
+            'website'    => null,
+        ],
+
+        'bacio-cremeria' => [
+            'name'       => 'Bacio Cremeria',
+            'menu'       => 'Bacio Cremeria',
+            'group'      => 'culinary',
+            'theme'      => 'bacio',   // Bacio's own design (.bc-*); colours from the Bacio logo
+            'kicker'     => 'Authentic flavor, modern creativity',
+            'intro'      => 'Handcrafted ice creams, gelatos and elegant sundaes — crafted with care and made for moments of connection. A fresh, indulgent experience in the heart of Addis Ababa.',
+            'badge'      => ['value' => 'New', 'label' => 'Handcrafted in Addis Ababa'],
+            'image'      => 'images/bacio/gelato-counter.webp',
+            'image_shot' => 'Bacio Cremeria — gelato counter',
+            'title'      => 'A blend of authentic flavor and modern creativity.',
+            'body'       => [
+                'A contemporary home for handcrafted ice creams, gelatos and elegant sundaes — fresh ingredients and thoughtful craft, made for sharing.',
+                'Every creation balances authentic flavor with modern creativity: simple, quality ingredients turned into treats that feel both familiar and distinctive.',
+            ],
+            // Bacio-only content blocks, rendered by businesses/partials/bacio.blade.php
+            'dairy'      => 'Fresh dairy sourced directly from Romina Dairy Farm — a farm-to-creation connection that brings freshness and authenticity into every scoop, sundae and cone.',
+            'moment'     => 'Friends, a family outing, or simply treating yourself — Bacio is designed to make the moment memorable. Come for the flavor, stay for the experience.',
+            'closing'    => 'Make room for something delicious — handcrafted treats in a space made for connection.',
+            'highlights' => [
+                'label' => 'What we make',
+                'title' => 'Handcrafted ice creams, gelatos & elegant sundaes.',
+                'items' => [
+                    ['icon' => 'fa-ice-cream',  'name' => 'Handcrafted Ice Creams', 'desc' => 'Freshly crafted for moments of pure indulgence.'],
+                    ['icon' => 'fa-bowl-food',  'name' => 'Gelatos',                'desc' => 'Smooth, rich and full of authentic flavor.'],
+                    ['icon' => 'fa-wine-glass', 'name' => 'Elegant Sundaes',        'desc' => 'Beautifully presented, made to feel special.'],
+                    ['icon' => 'fa-cow',        'name' => 'Fresh Dairy',            'desc' => 'Sourced directly from Romina Dairy Farm.'],
+                ],
+            ],
+            'gallery' => [
+                ['src' => 'images/bacio/gelato-counter.webp', 'shot' => 'Gelato flavors at Bacio Cremeria', 'caption' => 'Gelato flavors'],
+                ['src' => 'images/bacio/gelato-plate.webp', 'shot' => 'Handcrafted ice creams at Bacio Cremeria', 'caption' => 'Handcrafted ice creams'],
+                ['src' => 'images/bacio/waffle-ice-cream.webp', 'shot' => 'Waffles & ice cream at Bacio Cremeria', 'caption' => 'Waffles & ice cream'],
+                ['src' => 'images/bacio/affogato.webp', 'shot' => 'Affogato at Bacio Cremeria', 'caption' => 'Affogato'],
+                ['src' => 'images/bacio/iced-latte.webp', 'shot' => 'Iced coffee at Bacio Cremeria', 'caption' => 'Iced coffee'],
+            ],
+            'locations_label' => 'Visit Bacio',
+            'locations'  => [
+                ['name' => 'Bole Japan',      'desc' => 'Ice cream, gelato & sundae cafe', 'tag' => null],
+                ['name' => 'Bisrate Gabriel', 'desc' => 'Ice cream, gelato & sundae cafe', 'tag' => null],
+            ],
+            'phone'      => null,
             'website'    => null,
         ],
 
@@ -249,7 +294,7 @@ return [
             'kicker'     => 'Quality FMCG imported for local consumption',
             'intro'      => 'Essential products, sourced with care and distributed across the Ethiopian market.',
             'badge'      => ['value' => '5', 'label' => 'Product categories'],
-            'image'      => null,
+            'image'      => 'images/hero/imports-partners.webp',
             'image_shot' => 'Warehouse aisle, edible oils and rice',
             'title'      => 'From our kitchens to the market',
             'body'       => [

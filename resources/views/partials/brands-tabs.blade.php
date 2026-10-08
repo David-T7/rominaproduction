@@ -5,7 +5,7 @@
     --}}
 
     <?php
-    $brands_order = ['restaurants', 'koba', 'meskott', 'coffee', 'imports', 'jaquar'];
+    $brands_order = ['restaurants', 'coffee', 'jaquar', 'koba', 'bacio', 'meskott', 'imports'];
     $brands = [
 
         'restaurants' => [
@@ -16,12 +16,12 @@
             'body'      => "We don't just serve food; we invite you into an experience that mirrors the inclusion and warmth of home. Home-styled dishes from across the world, prepared as the most comforting versions of what you love.",
             'list'      => ['label' => 'Culinary promise', 'items' => ['European dishes', 'Asian dishes', 'Local Ethiopian dishes', 'Signature Agelgel']],
             'locations' => [
-                ['Arat Kilo (4 Kilo)', 'Romina Restaurant, Bar & Cafe',          true],
+                ['4 Kilo', 'Romina Restaurant, Bar & Cafe',          true],
                 ['Balderas',           'Romina Restaurant / Takeaway Center',     false],
             ],
             'phone'  => null,
             'cta'    => 'Visit Romina Restaurants',
-            'href'   => null,
+            'href'   => route('business', 'romina-restaurants'),
             'slides' => [
                 ['src' => 'images/gallery/romina-restaurants/08-romina-restaurant.webp', 'shot' => 'Balderas dining room, evening service',    'caption' => 'Balderas',                'pos' => '50% 50%'],
                 ['src' => 'images/gallery/romina-restaurants/05-romina-restaurant.webp', 'shot' => 'Signature Agelgel, plated on the pass',    'caption' => 'Signature Agelgel',       'pos' => '50% 50%'],
@@ -37,7 +37,7 @@
             'body'      => 'Artisan pastries, handcrafted cakes, signature breakfasts, specialty coffee and savory dishes, baked fresh by skilled pastry artisans across Addis Ababa.',
             'list'      => null,
             'locations' => [
-                ['Arat Kilo', 'Pastry & bakery takeaway center',        false],
+                ['4 Kilo', 'Pastry & bakery takeaway center',        false],
                 ['Sandford',  'Pastry, bakery, meals & drinks cafe',    false],
                 ['Atlas',     'Pastry, bakery, meals & drinks cafe',    false],
                 ['Peacock',   'Elevated coffee roastery experience',    false],
@@ -53,6 +53,27 @@
             ],
         ],
 
+        'bacio' => [
+            'name'      => 'Bacio Cremeria',
+            'tone'      => 'night',
+            'kicker'    => 'A blend of authentic flavor and modern creativity.',
+            'title'     => 'A blend of authentic flavor and modern creativity.',
+            'body'      => 'Handcrafted ice creams, gelatos, and elegant sundaes, made with fresh dairy ingredients sourced directly from Romina Dairy Farm. A premium ice cream and gelato concept in Addis Ababa, made for moments of connection.',
+            'list'      => ['label' => 'What we make', 'items' => ['Handcrafted Ice Creams', 'Gelatos', 'Elegant Sundaes', 'Fresh Dairy Ingredients']],
+            'locations' => [
+                ['Bole Japan',      'Ice cream, gelato & sundae cafe', false],
+                ['Bisrate Gabriel', 'Ice cream, gelato & sundae cafe', false],
+            ],
+            'phone'  => null,
+            'cta'    => 'Visit Bacio Cremeria',
+            'href'   => route('business', 'bacio-cremeria'),
+            'slides' => [
+                ['src' => 'images/bacio/gelato-counter.webp',   'shot' => 'Bacio Cremeria gelato counter, flavors on display', 'caption' => 'The gelato counter',  'pos' => '50% 55%'],
+                ['src' => 'images/bacio/gelato-plate.webp',     'shot' => 'Gelato scoops, plated with chocolate',              'caption' => 'Handcrafted gelato',   'pos' => '50% 45%'],
+                ['src' => 'images/bacio/waffle-ice-cream.webp', 'shot' => 'Waffle topped with ice cream and chocolate',        'caption' => 'Waffles & ice cream',  'pos' => '50% 45%'],
+            ],
+        ],
+
         'meskott' => [
             'name'      => 'Meskott',
             'tone'      => 'night',
@@ -61,11 +82,11 @@
             'body'      => 'International cuisine led by talented chefs, paired with a curated selection of wines, spirits and classy cocktails. The new upscale meeting place in the city.',
             'list'      => null,
             'locations' => [
-                ['Arat Kilo', 'King George VI Street, opposite Menelik II School, ground floor, Sellassie Twin Towers', false],
+                ['4 Kilo', 'King George VI Street, opposite Menelik II School, ground floor, Sellassie Twin Towers', false],
             ],
             'phone'  => '+251 90 387 9999',
             'cta'    => 'Visit Meskott',
-            'href'   => null,
+            'href'   => route('business', 'meskott-culinary'),
             'slides' => [
                 ['src' => 'images/gallery/meskott-culinary/meskott_6.webp', 'shot' => 'Meskott bar at night, backlit shelves', 'caption' => 'The bar',            'pos' => '50% 50%'],
                 ['src' => 'images/gallery/meskott-culinary/meskott_1.webp', 'shot' => 'VIP table area, set for dinner',         'caption' => 'VIP table area',    'pos' => '50% 50%'],
@@ -83,7 +104,7 @@
             'locations' => null,
             'phone'     => null,
             'cta'       => 'Discover Romina Coffee',
-            'href'      => '#coffee',
+            'href'      => route('business', 'romina-coffee'),
             'slides'    => [
                 ['src' => 'images/coffee/processing-floor.webp',   'shot' => 'Our coffee processing and storage floor', 'caption' => 'Processing floor', 'pos' => '50% 50%'],
                 ['src' => 'images/coffee/green-beans-burlap.webp', 'shot' => 'Green coffee beans in a burlap sack',     'caption' => 'Green coffee',     'pos' => '50% 50%'],
@@ -100,11 +121,10 @@
             'list'      => ['label' => 'Categories', 'items' => ['Pastas', 'Pastry ingredients', 'Dairy products', 'Edible oils', 'Rice']],
             'locations' => null,
             'phone'     => '0116 669 100',
-            'cta'       => 'Contact Romina Imports',
-            'href'      => '#contact',
+            'cta'       => 'Visit Romina Imports',
+            'href'      => route('business', 'romina-imports'),
             'slides'    => [
-                ['src' => null, 'shot' => 'Imported pasta range, studio still life',  'caption' => 'Pastas',       'pos' => '50% 50%'],
-                ['src' => null, 'shot' => 'Warehouse aisle, edible oils and rice',    'caption' => 'Distribution', 'pos' => '50% 50%'],
+                ['src' => config('businesses.brands.romina-imports.image'), 'shot' => 'Romina Imports partners', 'caption' => 'Our partners', 'pos' => '50% 50%'],
             ],
         ],
 
@@ -121,7 +141,7 @@
             ],
             'phone'  => '+251 944 143 073',
             'cta'    => 'Visit Jaquar World',
-            'href'   => null,
+            'href'   => route('business', 'jaquar-world'),
             'slides' => [
                 ['src' => 'images/portfolio/jaquar-basin.jpg', 'shot' => 'Basin and wall-mounted faucet', 'caption' => 'Bathroom solutions', 'pos' => '50% 45%'],
                 ['src' => 'images/gallery/jaquar-world/01-jaquar.webp', 'shot' => 'Jaquar bathroom fixtures', 'caption' => 'Jaquar showroom', 'pos' => '50% 50%'],
@@ -166,7 +186,7 @@
                         aria-controls="brand-panel-{{ $k }}"
                         data-brand="{{ $k }}"
                         data-tone="{{ $k }}"
-                        data-dark="{{ in_array($k, ['restaurants', 'koba', 'meskott', 'coffee', 'imports'], true) ? '1' : '' }}"
+                        data-dark="{{ in_array($k, ['restaurants', 'koba', 'bacio', 'meskott', 'coffee', 'imports'], true) ? '1' : '' }}"
                         data-state="{{ $k === 'restaurants' ? 'active' : 'inactive' }}"
                     >{{ $brands[$k]['name'] }}</button>
                 @endforeach

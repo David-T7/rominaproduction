@@ -35,8 +35,8 @@
                     </div>
 
                     <h1>
-                        Building businesses<br>
-                        <span>that shape tomorrow.</span>
+                        Building Businesses<br>
+                        <span>That Shape Tomorrow.</span>
                     </h1>
 
                     <p>
@@ -99,7 +99,7 @@
             <div class="slide-counter">
                 <span class="current-slide">01</span>
                 <span class="counter-divider">/</span>
-                <span>{{ sprintf('%02d', $heroTotal) }}</span>
+                <span class="total-slides">{{ sprintf('%02d', $heroTotal) }}</span>
             </div>
 
 

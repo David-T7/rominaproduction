@@ -11,7 +11,7 @@ $accomplishments = [
         'year'  => '1973',
         'cat'   => 'Founded',
         'title' => 'Founded in 4 Kilo',
-        'desc'  => 'Girma Taye opens a small restaurant in 4 Kilo, Addis Ababa — the seed of Romina Group.',
+        'desc'  => 'Girma Taye opens a small restaurant in 4 Kilo, Addis Ababa, the seed of Romina Group.',
         'shot'  => 'The 4 Kilo monument, Addis Ababa, where Romina began',
         'img'   => 'images/stock/arat-kilo-monument.webp',
         'pos'   => '50% 30%',
@@ -19,7 +19,7 @@ $accomplishments = [
     [
         'year'  => '3,714',
         'cat'   => 'Community',
-        'title' => 'Farmers supported',
+        'title' => 'Farmers Supported',
         'desc'  => 'Romina Coffee directly supports 3,714 smallholder farmers across Ethiopia\'s coffee regions.',
         'shot'  => 'Coffee farmers sorting beans on raised drying beds',
         'img'   => 'images/coffee-origin/01-sorting-drying-beds.webp',
@@ -28,7 +28,7 @@ $accomplishments = [
     [
         'year'  => '7',
         'cat'   => 'Certifications',
-        'title' => 'Organic & Rainforest Alliance certified',
+        'title' => 'Organic & Rainforest Alliance Certified',
         'desc'  => 'Eight certifications including organic and Rainforest Alliance recognition for sustainable practices.',
         'shot'  => 'Green coffee samples on the cupping table',
         'img'   => 'images/coffee/cupping-table.webp',
@@ -37,7 +37,7 @@ $accomplishments = [
     [
         'year'  => '4',
         'cat'   => 'CSR',
-        'title' => 'Schools built in coffee communities',
+        'title' => 'Schools Built in Coffee Communities',
         'desc'  => 'Four schools constructed in remote coffee-growing communities, improving access to education.',
         'shot'  => 'Students learning in a classroom',
         'img'   => 'images/stock/classroom.webp',
@@ -46,7 +46,7 @@ $accomplishments = [
     [
         'year'  => '50+',
         'cat'   => 'Infrastructure',
-        'title' => 'Potable water & road infrastructure',
+        'title' => 'Potable Water & Road Infrastructure',
         'desc'  => 'Potable-water sites and road infrastructure developed to serve rural coffee-growing regions.',
         'shot'  => 'A girl drinking from a clean-water tap',
         'img'   => 'images/stock/clean-water.webp',
@@ -63,9 +63,9 @@ $accomplishments = [
                 <p class="mark">
                     <span class="mark-rule"></span>
                     <i></i>
-                    Our accomplishments
+                    Our Accomplishments
                 </p>
-                <h2 class="t-h2" id="acHeading">Milestones we're<br>proud of.</h2>
+                <h2 class="t-h2" id="acHeading">Milestones We're<br>Proud Of.</h2>
             </div>
 
             <div class="ac-arrows" role="group" aria-label="Scroll accomplishments">
@@ -98,7 +98,7 @@ $accomplishments = [
                         </div>
                     @endif
                     <div class="ac-card-body">
-                        <span class="ac-badge">{{ $item['year'] }}</span>
+                        <span class="ac-badge">{{ rtrim($item['year'], '+') }}@if (str_ends_with($item['year'], '+'))<sup class="num-plus">+</sup>@endif</span>
                         <span class="ac-cat">{{ $item['cat'] }}</span>
                         <h3 class="ac-title">{{ $item['title'] }}</h3>
                         <p class="ac-desc">{{ $item['desc'] }}</p>

@@ -17,42 +17,28 @@ return [
     'categories' => [
         'events'                => ['label' => 'Events',                  'icon' => 'fa-calendar-days'],
         'launches'              => ['label' => 'Launches',                'icon' => 'fa-rocket',              'full' => 'New product & branch launches'],
-        'coffee-harvest'        => ['label' => 'Coffee harvest',          'icon' => 'fa-seedling',            'full' => 'Coffee harvest updates'],
+        'coffee-harvest'        => ['label' => 'Coffee Harvest',          'icon' => 'fa-seedling',            'full' => 'Coffee harvest updates'],
         'awards'                => ['label' => 'Awards',                  'icon' => 'fa-trophy'],
         'csr'                   => ['label' => 'CSR',                     'icon' => 'fa-hand-holding-heart',  'full' => 'CSR activities'],
-        'restaurant-promotions' => ['label' => 'Restaurant promotions',   'icon' => 'fa-utensils'],
-        'group-news'            => ['label' => 'Group news',              'icon' => 'fa-newspaper',           'full' => 'Other Group news'],
+        'restaurant-promotions' => ['label' => 'Restaurant Promotions',   'icon' => 'fa-utensils'],
+        'group-news'            => ['label' => 'Group News',              'icon' => 'fa-newspaper',           'full' => 'Other Group news'],
     ],
 
-    'articles' => [
+    'articles' => array_merge(require __DIR__ . '/news-initiatives.php', [
 
         /* ---------------- EVENTS ---------------- */
 
         [
             'slug'     => 'coffee-cupping-evening',
-            'title'    => 'An evening of Ethiopian coffee: our annual cupping night',
+            'title'    => 'An Evening of Ethiopian Coffee: Our Annual Cupping Night',
             'category' => 'events',
             'date'     => '2026-09-20',
             'image'    => 'images/coffee/cupping-table.webp',
             'excerpt'  => 'Guests, partners and buyers joined our coffee team to taste this season\'s lots from across Ethiopia\'s growing regions.',
             'body'     => [
                 'Romina Coffee welcomed partners, buyers and friends of the Group for an evening of cupping, bringing together lots from several of Ethiopia\'s best-known growing regions.',
-                'Our quality team guided guests through each coffee — from bright, floral washed lots to deeper, fruit-forward naturals — sharing the story of the farmers and stations behind every cup.',
+                'Our quality team guided guests through each coffee, from bright, floral washed lots to deeper, fruit-forward naturals, sharing the story of the farmers and stations behind every cup.',
                 'Events like this are a chance to celebrate the people who make Ethiopian coffee exceptional, and to share that pride with the partners who carry it around the world.',
-            ],
-        ],
-
-        [
-            'slug'     => 'hospitality-expo-addis',
-            'title'    => 'Romina Group joins the Addis Ababa hospitality showcase',
-            'category' => 'events',
-            'date'     => '2026-05-14',
-            'image'    => 'images/hero/hero-02.jpg',
-            'excerpt'  => 'Our hospitality, coffee and imports teams met industry peers and partners at the city\'s hospitality showcase.',
-            'body'     => [
-                'Teams from across Romina Group took part in the Addis Ababa hospitality showcase, meeting industry peers, suppliers and partners from across the region.',
-                'Visitors to our stand sampled KOBA pastries and Romina Coffee, and learned about the Group\'s work across restaurants, imports and distribution.',
-                'We look forward to building on the conversations started at the showcase in the months ahead.',
             ],
         ],
 
@@ -60,25 +46,25 @@ return [
 
         [
             'slug'     => 'koba-flagship-opening',
-            'title'    => 'KOBA Patisserie opens new flagship in Addis Ababa',
+            'title'    => 'KOBA Patisserie Opens New Flagship in Addis Ababa',
             'category' => 'launches',
             'date'     => '2026-08-28',
             'image'    => 'images/portfolio/baked.jpg',
             'excerpt'  => 'A new flagship location brings KOBA\'s craft patisserie and specialty coffee to the heart of the city.',
             'body'     => [
                 'KOBA Patisserie & Bakery has opened the doors of its newest flagship in Addis Ababa, bringing together craft pastry, fresh bakery, and specialty coffee service under one roof.',
-                'The new space was designed as a destination — a place for guests to slow down, enjoy a carefully made cup, and experience the quality that has become synonymous with the KOBA name.',
+                'The new space was designed as a destination: a place for guests to slow down, enjoy a carefully made cup, and experience the quality that has become synonymous with the KOBA name.',
                 'The opening marks another step in the Group\'s continued growth across hospitality and coffee.',
             ],
         ],
 
         [
             'slug'     => 'jaquar-world-artize-collection',
-            'title'    => 'Jaquar World introduces the Artize luxury collection',
+            'title'    => 'Jaquar World Introduces the Artize Luxury Collection',
             'category' => 'launches',
             'date'     => '2026-02-18',
             'image'    => 'images/portfolio/jaguar.jpg',
-            'excerpt'  => 'Our showrooms now feature Artize — luxury faucets, showers and architectural lighting for premium spaces.',
+            'excerpt'  => 'Our showrooms now feature Artize, with luxury faucets, showers and architectural lighting for premium spaces.',
             'body'     => [
                 'Jaquar World Addis Ababa has introduced the Artize collection to its showrooms, bringing luxury faucets, shower systems and architectural lighting to customers across the city.',
                 'Artize sits alongside the Jaquar Premium range, giving architects, developers and homeowners a complete choice for every kind of project.',
@@ -90,7 +76,7 @@ return [
 
         [
             'slug'     => 'harvest-season-begins',
-            'title'    => 'This season\'s harvest begins across our growing regions',
+            'title'    => 'This Season\'s Harvest Begins Across Our Growing Regions',
             'category' => 'coffee-harvest',
             'date'     => '2026-08-10',
             'image'    => 'images/coffee/drying-beds.jpg',
@@ -104,7 +90,7 @@ return [
 
         [
             'slug'     => 'hand-sorting-quality-program',
-            'title'    => 'Inside our hand-sorting quality programme',
+            'title'    => 'Inside Our Hand-Sorting Quality Programme',
             'category' => 'coffee-harvest',
             'date'     => '2026-03-08',
             'image'    => 'images/coffee/sorting-line.webp',
@@ -112,7 +98,7 @@ return [
             'body'     => [
                 'Quality begins long before the cup. At Romina Coffee, hand-sorting is a core part of how we ensure every bean that carries our name meets the standard our customers expect.',
                 'Skilled teams review the beans by hand, removing defects and preserving the consistency that defines specialty-grade Ethiopian coffee.',
-                'It is meticulous, deliberate work — and it is one of the many reasons our coffee stands apart.',
+                'It is meticulous, deliberate work, and it is one of the many reasons our coffee stands apart.',
             ],
         ],
 
@@ -120,7 +106,7 @@ return [
 
         [
             'slug'     => 'romina-coffee-rainforest-alliance',
-            'title'    => 'Romina Coffee earns Rainforest Alliance recognition',
+            'title'    => 'Romina Coffee Earns Rainforest Alliance Recognition',
             'category' => 'awards',
             'date'     => '2026-09-12',
             'image'    => 'images/coffee/green-beans-burlap.webp',
@@ -134,7 +120,7 @@ return [
 
         [
             'slug'     => 'koba-favourite-bakery',
-            'title'    => 'KOBA voted among the city\'s favourite bakeries',
+            'title'    => 'KOBA Voted Among the City\'s Favourite Bakeries',
             'category' => 'awards',
             'date'     => '2026-01-22',
             'image'    => 'images/business/baked.jpg',
@@ -150,7 +136,7 @@ return [
 
         [
             'slug'     => 'schools-in-coffee-communities',
-            'title'    => 'Four schools built in remote coffee-growing communities',
+            'title'    => 'Four Schools Built in Remote Coffee-Growing Communities',
             'category' => 'csr',
             'date'     => '2026-07-15',
             'image'    => 'images/stock/classroom.webp',
@@ -164,7 +150,7 @@ return [
 
         [
             'slug'     => 'clean-water-site-opens',
-            'title'    => 'New potable-water site brings clean water closer to home',
+            'title'    => 'New Potable-Water Site Brings Clean Water Closer to Home',
             'category' => 'csr',
             'date'     => '2026-04-02',
             'image'    => 'images/stock/clean-water.webp',
@@ -172,7 +158,7 @@ return [
             'body'     => [
                 'A new potable-water site is now serving families in one of Romina Coffee\'s growing communities, bringing clean water within reach for households that previously travelled far to collect it.',
                 'The project was delivered together with community leaders, and forms part of the Group\'s wider investment in schools, bridges and roads across coffee regions.',
-                'Clean water changes daily life — for health, for school attendance, and for the time families get back.',
+                'Clean water changes daily life: for health, for school attendance, and for the time families get back.',
             ],
         ],
 
@@ -180,7 +166,7 @@ return [
 
         [
             'slug'     => 'agelgel-lunch-special',
-            'title'    => 'Signature Agelgel lunch, now at Romina Restaurants',
+            'title'    => 'Signature Agelgel Lunch, Now at Romina Restaurants',
             'category' => 'restaurant-promotions',
             'date'     => '2026-09-05',
             'image'    => 'images/business/restaurant.webp',
@@ -194,14 +180,14 @@ return [
 
         [
             'slug'     => 'meskott-weekend-brunch',
-            'title'    => 'Weekend brunch arrives in the Meskott street food garden',
+            'title'    => 'Weekend Brunch Arrives in the Meskott Street Food Garden',
             'category' => 'restaurant-promotions',
             'date'     => '2026-06-20',
             'image'    => 'images/portfolio/restaurant.webp',
             'excerpt'  => 'Slow Saturdays and Sundays with brunch plates, fresh juices and coffee in the garden.',
             'body'     => [
                 'Meskott Culinary Experience now hosts weekend brunch in its street food garden, with brunch plates, fresh juices and specialty coffee.',
-                'It is the perfect way to spend a slow Saturday or Sunday morning in 4 Kilo — whether catching up with friends or bringing the family.',
+                'It is the perfect way to spend a slow Saturday or Sunday morning in 4 Kilo, whether catching up with friends or bringing the family.',
                 'Tables can be reserved by calling Meskott directly.',
             ],
         ],
@@ -210,7 +196,7 @@ return [
 
         [
             'slug'     => 'romina-restaurants-milestone',
-            'title'    => 'Romina celebrates five decades of hospitality',
+            'title'    => 'Romina Celebrates Five Decades of Hospitality',
             'category' => 'group-news',
             'date'     => '2026-06-02',
             'image'    => 'images/about/romina-history.jpg',
@@ -218,13 +204,13 @@ return [
             'body'     => [
                 'What began in 1973 as a small restaurant in 4 Kilo, Addis Ababa, has grown into a group of businesses spanning hospitality, coffee export, imports and distribution.',
                 'Across five decades, the constant has been our commitment to quality, craft, and the guests and communities we serve.',
-                'As we look ahead, we remain a family business — one that keeps growing while staying true to the values it was founded on.',
+                'As we look ahead, we remain a family business, one that keeps growing while staying true to the values it was founded on.',
             ],
         ],
 
         [
             'slug'     => 'import-division-partnerships',
-            'title'    => 'Import division expands partnerships with global brands',
+            'title'    => 'Import Division Expands Partnerships With Global Brands',
             'category' => 'group-news',
             'date'     => '2026-04-20',
             'image'    => 'images/hero/imports-partners.webp',
@@ -232,9 +218,9 @@ return [
             'body'     => [
                 'Romina Group\'s import and distribution division has expanded its portfolio through new partnerships with established global brands.',
                 'The agreements broaden the range of quality products available to the Ethiopian market and strengthen the Group\'s position across its distribution network.',
-                'The expansion reflects a disciplined approach to growth — pursuing partnerships that align with the Group\'s standards and long-term vision.',
+                'The expansion reflects a disciplined approach to growth, pursuing partnerships that align with the Group\'s standards and long-term vision.',
             ],
         ],
 
-    ],
+    ]),
 ];

@@ -16,16 +16,55 @@
 @endphp
 
 @section('page-css')
+@if ($brandSlug === 'romina-imports')
+<link rel="stylesheet" href="{{ asset('css/romina-imports.css') }}">
+@endif
+@if ($brandSlug === 'romina-coffee')
+<link rel="stylesheet" href="{{ asset('css/romina-coffee.css') }}">
+@endif
+@if ($brandSlug === 'romina-restaurants')
+<link rel="stylesheet" href="{{ asset('css/romina-restaurants.css') }}">
+<link rel="preload" as="image" href="{{ asset('images/gallery/romina-restaurants/10-romina-restaurant.webp') }}">
+<link rel="preload" as="image" href="{{ asset('images/gallery/romina-restaurants/08-romina-restaurant.webp') }}">
+@endif
+@if ($brandSlug === 'koba-patisserie')
+<link rel="stylesheet" href="{{ asset('css/koba-about.css') }}">
+<link rel="stylesheet" href="{{ asset('css/koba-explorer.css') }}">
+@endif
+@if ($brandSlug === 'jaquar-world')
+<link rel="stylesheet" href="{{ asset('css/jaquar.css') }}">
+<link rel="preload" as="image" href="{{ asset('images/jaquar/bath-slipper.webp') }}">
+@endif
 @if ($brandSlug === 'bacio-cremeria')
+{{-- Josefin Sans stands in for the guideline face (Champagne & Limousines) until it is self-hosted --}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="{{ asset('css/bacio.css') }}">
 @endif
 @endsection
 
 @section('page-content')
 
-<div class="bz-page{{ $bzTheme ? ' bz-theme--' . $bzTheme : '' }}{{ $brandSlug === 'bacio-cremeria' ? ' bacio-page' : '' }}">
+<div class="bz-page{{ $bzTheme ? ' bz-theme--' . $bzTheme : '' }}{{ $brandSlug === 'bacio-cremeria' ? ' bacio-page' : '' }}{{ $brandSlug === 'romina-restaurants' ? ' rr-page' : '' }}{{ $brandSlug === 'romina-coffee' ? ' coffee-page' : '' }}{{ $brandSlug === 'romina-imports' ? ' romina-imports-page' : '' }}">
 
-@if ($brandSlug === 'koba-patisserie')
+@if (!empty($brand['coming_soon']))
+
+{{-- ============ COMING SOON — brand page placeholder ============ --}}
+<section class="bz-soon">
+    <div class="container">
+        <nav class="page-hero-crumbs" aria-label="Breadcrumb">
+            <a href="{{ $home }}">Home</a>
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            <a href="{{ $home }}#businesses">Businesses</a>
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            <span aria-current="page">{{ $brand['menu'] }}</span>
+        </nav>
+        <p class="hero-category">{{ strtoupper($groups[$brand['group']]) }}</p>
+        <h1>{{ $brand['name'] }}</h1>
+        <p class="bz-soon-tag"><span class="bz-soon-dot" aria-hidden="true"></span>Coming Soon</p>
+    </div>
+</section>
+
+@elseif ($brandSlug === 'koba-patisserie')
 
 {{-- KOBA has its own hero / about / showcase (Kubo-inspired, with scroll effects) --}}
 @include('businesses.partials.koba')
@@ -34,6 +73,11 @@
 
 {{-- Bacio has its own page sections and uses the shared business gallery. --}}
 @include('businesses.partials.bacio')
+
+@elseif ($brandSlug === 'jaquar-world')
+
+{{-- Jaquar has its own retail-style sections and filterable gallery. --}}
+@include('businesses.partials.jaquar')
 
 @else
 
@@ -56,7 +100,13 @@
 
             <div class="hero-category">{{ strtoupper($groups[$brand['group']]) }}</div>
 
-            <h1>{{ $brand['name'] }}</h1>
+            @if (!empty($brand['hero_logo']))
+                <h1 class="bz-hero-logo">
+                    <img src="{{ asset($brand['hero_logo']) }}" alt="{{ $brand['name'] }}">
+                </h1>
+            @else
+                <h1>{{ $brand['name'] }}</h1>
+            @endif
 
             <p class="bz-hero-kicker">{{ $brand['kicker'] }}</p>
 
@@ -87,7 +137,17 @@
         <div class="bz-hero-media">
             <div class="bz-hero-frame">
                 @if ($brand['image'])
-                    <img src="{{ asset($brand['image']) }}" alt="{{ $brand['name'] }}">
+                    @if ($brandSlug === 'romina-restaurants')
+                        <a class="rr-photo" href="{{ asset('images/romina-restaurants/11-clay-pot-special.webp') }}" data-rr-photo data-caption="The clay-pot special" aria-label="Enlarge photo: The clay-pot special">
+                            <img src="{{ asset('images/romina-restaurants/11-clay-pot-special.webp') }}" width="1600" height="1850" alt="Romina clay-pot dish garnished with fresh herbs">
+                        </a>
+                    @elseif ($brandSlug === 'romina-coffee')
+                        <button type="button" class="bz-tile-btn ce-hero-photo" data-full="{{ asset($brand['image']) }}" data-caption="The Warehouse" aria-label="Enlarge photo: coffee sacks in the Romina warehouse">
+                            <img src="{{ asset($brand['image']) }}" width="2000" height="1333" alt="Coffee sacks stacked on pallets in the Romina warehouse">
+                        </button>
+                    @else
+                        <img src="{{ asset($brand['image']) }}" alt="{{ $brand['name'] }}">
+                    @endif
                 @else
                     <div class="bz-ph bz-ph--hero">
                         <span class="bz-ph-initial" aria-hidden="true">{{ $initial }}</span>
@@ -109,6 +169,13 @@
 
 
 {{-- ============ OVERVIEW ============ --}}
+@if ($brandSlug === 'romina-restaurants')
+@include('businesses.partials.romina-restaurants')
+@elseif ($brandSlug === 'romina-coffee')
+@include('businesses.partials.coffee-about')
+@elseif ($brandSlug === 'romina-imports')
+@include('businesses.partials.imports-about')
+@else
 <section class="bz-overview bz-overview--{{ $brandSlug }}" id="bz-overview">
     <div class="container bz-overview-grid">
 
@@ -137,8 +204,26 @@
 
 
 {{-- ============ HIGHLIGHTS ============ --}}
-@if (($brand['show_highlights'] ?? true) && !empty($brand['highlights']['items']))
-<section class="bz-highlights bz-highlights--{{ $brandSlug }}">
+@php
+    $hlItems = $brand['highlights']['items'] ?? [];
+    $hlPhoto = !empty($hlItems) && !empty($hlItems[0]['image']);   // photo variant when cards carry images
+@endphp
+@if (!empty($brand['export_journey']))
+@include('businesses.partials.coffee-journey')
+@elseif (($brand['show_highlights'] ?? true) && !empty($hlItems))
+<section class="bz-highlights bz-highlights--{{ $brandSlug }}{{ $hlPhoto ? ' bz-highlights--photo' : '' }}"
+         @if ($hlPhoto) data-bz-xp @endif>
+
+    @if ($hlPhoto)
+        {{-- background photos: the hovered / focused card's image fades in --}}
+        <div class="bz-xp-bg" aria-hidden="true">
+            @foreach ($hlItems as $item)
+                <img class="bz-xp-bg-img{{ $loop->first ? ' is-on' : '' }}" src="{{ asset($item['image']) }}" alt=""
+                     data-xp-bg="{{ $loop->index }}" @unless ($loop->first) loading="lazy" @endunless>
+            @endforeach
+        </div>
+    @endif
+
     <div class="container">
 
         <div class="bz-section-head">
@@ -148,7 +233,8 @@
 
         <ul class="bz-cards">
             @foreach ($brand['highlights']['items'] as $item)
-                <li class="bz-card">
+                <li class="bz-card{{ $hlPhoto && $loop->first ? ' is-on' : '' }}"
+                    @if ($hlPhoto) data-xp="{{ $loop->index }}" tabindex="0" @endif>
                     <span class="bz-card-num">{{ sprintf('%02d', $loop->iteration) }}</span>
                     <span class="bz-card-icon" aria-hidden="true"><i class="fa-solid {{ $item['icon'] }}"></i></span>
                     <span class="bz-card-name">{{ $item['name'] }}</span>
@@ -162,6 +248,12 @@
 
 @endif
 
+@if ($brandSlug === 'romina-coffee' && !empty($brand['export_journey']))
+@include('businesses.partials.coffee-journey')
+@endif
+
+
+@endif
 
 {{-- ============ STATS + JOURNEY (Romina Coffee) ============ --}}
 @if (!empty($brand['stats']))
@@ -169,14 +261,14 @@
     <div class="container">
 
         <div class="bz-section-head bz-section-head--light">
-            <span class="bz-label">By the numbers</span>
-            <h2>The scale behind every cup.</h2>
+            <span class="bz-label">By the Numbers</span>
+            <h2>The Scale Behind Every Cup.</h2>
         </div>
 
         <div class="bz-stats-grid">
             @foreach ($brand['stats'] as $stat)
                 <div class="bz-stat">
-                    <strong>{{ $stat['value'] }}</strong>
+                    <strong>{{ rtrim($stat['value'], '+') }}@if (str_ends_with($stat['value'], '+'))<sup class="num-plus">+</sup>@endif</strong>
                     <span>{{ $stat['label'] }}</span>
                 </div>
             @endforeach
@@ -199,15 +291,27 @@
 @endif
 
 
-@if ($brandSlug !== 'bacio-cremeria')
+@if ($brandSlug === 'koba-patisserie')
+@include('businesses.partials.koba-gallery')
+@elseif ($brandSlug === 'meskott-culinary')
+@include('businesses.partials.meskott-gallery')
+@elseif ($brandSlug === 'romina-coffee')
+@include('businesses.partials.coffee-gallery')
+@elseif (!in_array($brandSlug, ['bacio-cremeria', 'romina-restaurants', 'jaquar-world'], true))
 @include('businesses.partials.gallery')
 @endif
 
 
 {{-- ============ LOCATIONS ============ --}}
-@if (!empty($brand['locations']))
-<section class="bz-locations" id="bz-locations">
-    <div class="container">
+@if ($brandSlug === 'koba-patisserie')
+@include('businesses.partials.koba-locations')
+@elseif ($brandSlug === 'romina-coffee')
+@include('businesses.partials.coffee-regions')
+@elseif (!empty($brand['locations']) && $brandSlug !== 'romina-restaurants')
+<section class="bz-locations{{ !empty($brand['location_slides']) ? ' bz-locations--slides' : '' }}" id="bz-locations">
+    <div class="container{{ !empty($brand['location_slides']) ? ' bz-loc-split' : '' }}">
+
+    <div class="bz-loc-main">
 
         <div class="bz-section-head">
             <span class="bz-label">{{ $brand['locations_label'] }}</span>
@@ -237,6 +341,37 @@
                 </li>
             @endforeach
         </ul>
+
+    </div>{{-- /.bz-loc-main --}}
+
+    @if (!empty($brand['location_slides']))
+        {{-- Swipe / arrows / dots; advances on its own every 6 s (paused on hover) --}}
+        <div class="bz-locslider" data-bz-locslider aria-roledescription="carousel" aria-label="{{ $brand['menu'] }} photos">
+            <div class="bz-locslider-track" tabindex="0">
+                @foreach ($brand['location_slides'] as $slide)
+                    <figure class="bz-locslider-slide" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ count($brand['location_slides']) }}">
+                        <img src="{{ asset($slide['src']) }}" alt="{{ $slide['caption'] }}" loading="lazy" decoding="async">
+                        <figcaption>{{ $slide['caption'] }}</figcaption>
+                    </figure>
+                @endforeach
+            </div>
+            <div class="bz-locslider-bar">
+                <div class="bz-locslider-dots" role="group" aria-label="Choose photo">
+                    @foreach ($brand['location_slides'] as $slide)
+                        <button type="button" class="{{ $loop->first ? 'is-on' : '' }}" aria-label="Photo {{ $loop->iteration }}"></button>
+                    @endforeach
+                </div>
+                <div class="ac-arrows bz-locslider-arrows">
+                    <button type="button" class="bz-locslider-prev" aria-label="Previous photo">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button type="button" class="bz-locslider-next" aria-label="Next photo">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
 
     </div>
 </section>
@@ -283,15 +418,15 @@
             <p class="mark tone-white">
                 <span class="mark-rule"></span>
                 <i aria-hidden="true"></i>
-                Our brands
+                Our Brands
             </p>
 
-            <h2 id="rib-brands-title" class="rib-heading">The names we bring<br>to Ethiopia.</h2>
+            <h2 id="rib-brands-title" class="rib-heading">The Names We Bring<br>to Ethiopia.</h2>
 
             {{-- TODO: replace with client-supplied intro copy. --}}
             <p class="rib-intro">
                 From pasta and rice to dairy and edible oils, Romina Imports brings a
-                growing family of trusted everyday brands to the Ethiopian market —
+                growing family of trusted everyday brands to the Ethiopian market,
                 each sourced with the same care we hold in our own kitchens.
             </p>
 
@@ -329,11 +464,11 @@
                     <a class="rib-badge" role="listitem" data-cat="{{ $b['category'] }}"
                        style="{{ $vars }}"
                        href="{{ $b['link'] }}" target="_blank" rel="noopener"
-                       aria-label="{{ !empty($b['logo']) ? $b['name'] . ' — ' . $b['category'] : $b['category'] }}">
+                       aria-label="{{ !empty($b['logo']) ? $b['name'] . ', ' . $b['category'] : $b['category'] }}">
                 @else
                     <button type="button" class="rib-badge" role="listitem" data-cat="{{ $b['category'] }}"
                             style="{{ $vars }}"
-                            aria-label="{{ !empty($b['logo']) ? $b['name'] . ' — ' . $b['category'] : $b['category'] }}">
+                            aria-label="{{ !empty($b['logo']) ? $b['name'] . ', ' . $b['category'] : $b['category'] }}">
                 @endif
                     <span class="rib-badge-face">
                         @if (!empty($b['logo']))
@@ -359,13 +494,19 @@
 @endif
 
 
+{{-- ============ EXTERNAL PARTNERS (Romina Imports) ============ --}}
+@if ($brandSlug === 'romina-imports' && ($brand['show_external_partners'] ?? true))
+    @include('partials.partners', ['partnersLabel' => 'External Partners'])
+@endif
+
+
 {{-- ============ MORE BUSINESSES ============ --}}
 <section class="bz-more">
     <div class="container">
 
         <div class="bz-section-head">
             <span class="bz-label">Romina Group</span>
-            <h2>Explore our other businesses.</h2>
+            <h2>Explore Our Other Businesses.</h2>
         </div>
 
         <div class="bz-more-grid">
@@ -388,6 +529,9 @@
 @endsection
 
 @section('page-js')
+@if ($brandSlug === 'romina-restaurants')
+<script src="{{ asset('js/romina-restaurants.js') }}" defer></script>
+@endif
 <script>
 /* Bacio scoops arrive in a wave when What we make comes into view. */
 (function () {
@@ -413,7 +557,7 @@
    Esc or backdrop click to close. Focus returns to the tile.
 ===================================================== */
 (function () {
-    var tiles = Array.prototype.slice.call(document.querySelectorAll('.bz-tile-btn'));
+    var tiles = Array.prototype.slice.call(document.querySelectorAll('.bz-tile-btn, .ks-photo, .kl-photo, .kl-hero-photo'));
     var box   = document.getElementById('bzLightbox');
     if (!tiles.length || !box) return;
 
@@ -425,28 +569,30 @@
     var btnClose = box.querySelector('.bz-lb-close');
     var current = 0;
     var opener  = null;
+    var active  = tiles;                            /* the photos currently visible (filters can hide some) */
 
     function pad(n) { return (n < 10 ? '0' : '') + n; }
 
     function show(i) {
-        current = (i + tiles.length) % tiles.length;
-        var t = tiles[current];
+        current = (i + active.length) % active.length;
+        var t = active[current];
         box.classList.remove('is-swapping');
         void box.offsetWidth;                       /* restart the swap animation */
         box.classList.add('is-swapping');
         img.src = t.dataset.full;
         img.alt = t.querySelector('img').alt;
-        countEl.textContent = pad(current + 1) + ' / ' + pad(tiles.length);
+        countEl.textContent = pad(current + 1) + ' / ' + pad(active.length);
         textEl.textContent  = t.dataset.caption;
     }
 
     function open(i, trigger) {
         opener = trigger || tiles[i];
+        active = tiles.filter(function (t) { return t === tiles[i] || t.offsetParent !== null; });
         box.hidden = false;
-        box.classList.toggle('is-single', tiles.length < 2);
+        box.classList.toggle('is-single', active.length < 2);
         requestAnimationFrame(function () { box.classList.add('is-open'); });
         document.body.style.overflow = 'hidden';
-        show(i);
+        show(active.indexOf(tiles[i]));
         btnClose.focus();
     }
 
@@ -504,12 +650,12 @@
 </script>
 
 @if ($brandSlug === 'koba-patisserie')
+<script src="{{ asset('js/koba-about.js') }}" defer></script>
+<script src="{{ asset('js/koba-explorer.js') }}" defer></script>
 <script>
 /* =====================================================
    KOBA — scroll effects (one rAF-throttled scroll loop)
    · parallax on [data-kb-speed]
-   · marquee that speeds up / reverses with the scroll
-   · statement words light up as it is read
    Off for reduced motion; parallax off below 900px.
 ===================================================== */
 (function () {
@@ -517,18 +663,13 @@
     var wide    = window.matchMedia('(min-width: 901px)');
 
     if (reduced) {
-        /* stop the SVG blob morph and show the statement fully lit */
+        /* stop the SVG blob morph */
         document.querySelectorAll('.kb-hero svg').forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); });
-        document.querySelectorAll('.kb-word').forEach(function (w) { w.classList.add('on'); });
         return;
     }
 
     var parallax  = Array.prototype.slice.call(document.querySelectorAll('[data-kb-speed]'));
-    var words     = Array.prototype.slice.call(document.querySelectorAll('.kb-word'));
-    var reveal    = document.querySelector('.kb-reveal');
-    var track     = document.querySelector('.kb-marquee-track');
-
-    var lastY = window.scrollY, velocity = 0, ticking = false;
+    var ticking = false;
 
     function update() {
         ticking = false;
@@ -542,38 +683,10 @@
             el.style.translate = '0 ' + offset.toFixed(1) + 'px';
         });
 
-        /* statement: light words up progressively */
-        if (reveal) {
-            var r2 = reveal.getBoundingClientRect();
-            var p  = (vh * 0.85 - r2.top) / (r2.height + vh * 0.35);
-            var lit = Math.round(Math.max(0, Math.min(1, p)) * words.length);
-            words.forEach(function (w, i) { w.classList.toggle('on', i < lit); });
-        }
     }
 
     function onScroll() {
-        var y = window.scrollY;
-        velocity = y - lastY;
-        lastY = y;
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }
-
-    /* ---- Marquee: continuous drift; scroll velocity adds speed and sets direction ---- */
-    if (track) {
-        var mx = 0, dir = 1, half = 0;
-        function measure() { half = track.scrollWidth / 2; }
-        measure();
-        (function loop() {
-            if (Math.abs(velocity) > 0.5) dir = velocity > 0 ? 1 : -1;
-            var speed = 0.6 + Math.min(Math.abs(velocity) * 0.15, 8);
-            velocity *= 0.9;                               /* ease back to the base drift */
-            mx -= speed * dir;
-            if (mx <= -half) mx += half;
-            if (mx > 0)      mx -= half;
-            track.style.transform = 'translate3d(' + mx.toFixed(1) + 'px,0,0)';
-            requestAnimationFrame(loop);
-        })();
-        window.addEventListener('resize', measure);
     }
 
     update();
@@ -823,27 +936,29 @@
             })
             .filter(Boolean);
 
+        /* a trailing '+' renders as the raised .num-plus superscript */
         var fmt = function (p, v) {
             var n = p.grouped ? Math.floor(v).toLocaleString('en-US') : String(Math.floor(v));
-            return p.prefix + n + p.suffix;
+            var suffix = p.suffix === '+' ? '<sup class="num-plus">+</sup>' : p.suffix;
+            return p.prefix + n + suffix;
         };
 
         var runCount = function () {
             parsed.forEach(function (p) {
-                if (reduce) { p.el.textContent = fmt(p, p.target); return; }
+                if (reduce) { p.el.innerHTML = fmt(p, p.target); return; }
                 var dur = p.target > 1000 ? 1900 : 1300;
                 var t0  = performance.now();
                 (function tick(now) {
                     var prog  = Math.min((now - t0) / dur, 1);
                     var eased = 1 - Math.pow(1 - prog, 3);
-                    p.el.textContent = fmt(p, eased * p.target);
+                    p.el.innerHTML = fmt(p, eased * p.target);
                     if (prog < 1) requestAnimationFrame(tick);
-                    else p.el.textContent = fmt(p, p.target);
+                    else p.el.innerHTML = fmt(p, p.target);
                 })(performance.now());
             });
         };
 
-        if (!reduce) parsed.forEach(function (p) { p.el.textContent = fmt(p, 0); });
+        if (!reduce) parsed.forEach(function (p) { p.el.innerHTML = fmt(p, 0); });
 
         if ('IntersectionObserver' in window && !reduce) {
             var io1 = new IntersectionObserver(function (entries) {
@@ -1012,4 +1127,317 @@
 })();
 </script>
 @endif
+
+<script>
+/* =====================================================
+   BRAND PAGE — photo highlights (hover swaps the section
+   background) + location photo slider (6 s autoplay)
+===================================================== */
+(function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- highlights: background follows the hovered / focused card ---- */
+    document.querySelectorAll('[data-bz-xp]').forEach(function (sec) {
+        var bgs   = sec.querySelectorAll('[data-xp-bg]');
+        var cards = sec.querySelectorAll('[data-xp]');
+        function show(i) {
+            bgs.forEach(function (b) { b.classList.toggle('is-on', b.dataset.xpBg === String(i)); });
+            cards.forEach(function (c) { c.classList.toggle('is-on', c.dataset.xp === String(i)); });
+        }
+        cards.forEach(function (c) {
+            c.addEventListener('mouseenter', function () { show(c.dataset.xp); });
+            c.addEventListener('focus',      function () { show(c.dataset.xp); });
+            c.addEventListener('click',      function () { show(c.dataset.xp); });   /* touch */
+        });
+    });
+
+    /* ---- location slider ---- */
+    document.querySelectorAll('[data-bz-locslider]').forEach(function (box) {
+        var track  = box.querySelector('.bz-locslider-track');
+        var slides = box.querySelectorAll('.bz-locslider-slide');
+        var dots   = box.querySelectorAll('.bz-locslider-dots button');
+        var n = slides.length, i = 0, timer = null;
+        if (!n) return;
+
+        function go(k, smooth) {
+            i = (k + n) % n;
+            track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: smooth === false || reduce ? 'auto' : 'smooth' });
+            dots.forEach(function (d, j) { d.classList.toggle('is-on', j === i); });
+        }
+        function start() { stop(); if (!reduce) timer = setInterval(function () { go(i + 1); }, 6000); }
+        function stop()  { if (timer) clearInterval(timer); timer = null; }
+
+        box.querySelector('.bz-locslider-prev').addEventListener('click', function () { go(i - 1); start(); });
+        box.querySelector('.bz-locslider-next').addEventListener('click', function () { go(i + 1); start(); });
+        dots.forEach(function (d, j) { d.addEventListener('click', function () { go(j); start(); }); });
+
+        /* keep the dots in step when the visitor swipes / scrolls the track */
+        var t;
+        track.addEventListener('scroll', function () {
+            clearTimeout(t);
+            t = setTimeout(function () {
+                var k = Math.round(track.scrollLeft / track.clientWidth);
+                if (k !== i) { i = k; dots.forEach(function (d, j) { d.classList.toggle('is-on', j === i); }); }
+            }, 120);
+        }, { passive: true });
+
+        box.addEventListener('mouseenter', stop);
+        box.addEventListener('mouseleave', start);
+        box.addEventListener('focusin', stop);
+        box.addEventListener('focusout', start);
+        start();
+    });
+}());
+</script>
+
+@if (!empty($brand['export_journey']))
+<script>
+/* =====================================================
+   COFFEE JOURNEY — "Where our coffee goes" (Romina Coffee)
+   One pure function, render(f), draws the whole scene from a
+   single number f = scroll progress through the section × 5
+   (0–1 origin intro, then one unit per destination). Cards,
+   countries and keys never animate directly: they scroll the
+   page to a journey, so scroll stays the one source of truth
+   and forward / reverse / interrupted moves always agree.
+   Reduced motion: no pinning; all routes drawn, cards select.
+===================================================== */
+(function () {
+    var root = document.querySelector('[data-cj]');
+    if (!root || root.dataset.cjInit) return;
+    root.dataset.cjInit = '1';
+
+    var svg    = root.querySelector('.cj-svg');
+    var stage  = root.querySelector('.cj-stage');
+    var btns   = [].slice.call(root.querySelectorAll('[data-cj-go]'));
+    var keys   = btns.map(function (b) { return b.dataset.route; });
+    var names  = btns.map(function (b) { return b.querySelector('.cj-dest-name').textContent.trim(); });
+    var routes = keys.map(function (k) { return svg.querySelector('.cj-route[data-route="' + k + '"]'); });
+    var dests  = keys.map(function (k) { return svg.querySelector('.cj-dest[data-dest="' + k + '"]'); });
+    var plane  = svg.querySelector('.cj-plane');
+    var originG = svg.querySelector('.cj-origin');
+    var glow   = svg.querySelector('.cj-glow');
+    var eth    = svg.querySelector('.cj-eth');
+    var live   = root.querySelector('[data-cj-live]');
+    var tip    = root.querySelector('[data-cj-tip]');
+    var labels = {};
+    root.querySelectorAll('[data-cj-label]').forEach(function (l) { labels[l.dataset.cjLabel] = l; });
+
+    var N = keys.length, STAGES = N + 1;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- geometry ---------- */
+    var lens = routes.map(function (r) { return r.getTotalLength(); });
+    var origin = svg.dataset.origin.split(' ').map(Number);
+    var destXY = dests.map(function (g) {
+        var m = /translate\(([-\d.]+) ([-\d.]+)\)/.exec(g.getAttribute('transform'));
+        return [+m[1], +m[2]];
+    });
+
+    function box(x0, y0, x1, y1) { return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }; }
+    function union(a, b) {
+        var x0 = Math.min(a.x, b.x), y0 = Math.min(a.y, b.y);
+        return box(x0, y0, Math.max(a.x + a.w, b.x + b.w), Math.max(a.y + a.h, b.y + b.h));
+    }
+    function bb(el) { var r = el.getBBox(); return box(r.x, r.y, r.x + r.width, r.y + r.height); }
+    function pad(b, k) { return box(b.x - b.w * k, b.y - b.h * k, b.x + b.w * (1 + k), b.y + b.h * (1 + k)); }
+
+    var ethBox = bb(eth);
+    var raw = {
+        intro: pad(ethBox, 2.2),
+        routes: routes.map(function (r) { return pad(union(bb(r), box(origin[0], origin[1], origin[0], origin[1])), .18); }),
+        all: pad(routes.reduce(function (acc, r) { return union(acc, bb(r)); }, ethBox), .08)
+    };
+
+    /* fit a box to the stage's aspect ratio (camera director) */
+    var W = 1, H = 1, frames = {};
+    var MIN_W = 300;                       /* never zoom in further than ~1/4 of the world width */
+    function fit(b) {
+        var a = W / H, w = Math.max(b.w, MIN_W), h = b.h;
+        if (w / h > a) h = w / a; else w = h * a;
+        return { cx: b.x + b.w / 2, cy: b.y + b.h / 2, w: w };
+    }
+    function measure() {
+        var r = stage.getBoundingClientRect();
+        W = Math.max(r.width, 1); H = Math.max(r.height, 1);
+        var keep = MIN_W; MIN_W = 120; frames.intro = fit(raw.intro); MIN_W = keep;
+        frames.routes = raw.routes.map(fit);
+        frames.all = fit(raw.all);
+    }
+
+    /* ---------- helpers ---------- */
+    function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+    function seg(t, a, b) { return clamp((t - a) / (b - a), 0, 1); }
+    function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function mix(a, b, t) {   /* centre glides, zoom interpolates on a log scale */
+        return { cx: a.cx + (b.cx - a.cx) * t, cy: a.cy + (b.cy - a.cy) * t, w: Math.exp(Math.log(a.w) + (Math.log(b.w) - Math.log(a.w)) * t) };
+    }
+
+    /* ---------- scene from progress ---------- */
+    var lastActive = null, lastArrived = -1;
+
+    function render(f) {
+        var j = Math.floor(f), t = f - j;
+        if (j >= STAGES) { j = N; t = 1; }
+
+        /* camera */
+        var cam, active = -1, r = 0;
+        if (j === 0) {
+            cam = mix(frames.intro, frames.routes[0], ease(seg(t, .45, 1)));
+        } else {
+            active = j - 1;
+            r = ease(seg(t, .05, .72));
+            var next = active + 1 < N ? frames.routes[active + 1] : frames.all;
+            cam = mix(frames.routes[active], next, ease(seg(t, .82, 1)));
+        }
+        var ch = cam.w * H / W;
+        svg.setAttribute('viewBox', (cam.cx - cam.w / 2).toFixed(2) + ' ' + (cam.cy - ch / 2).toFixed(2) + ' ' + cam.w.toFixed(2) + ' ' + ch.toFixed(2));
+        var k = cam.w / W;                                  /* svg units per screen px */
+
+        /* routes */
+        routes.forEach(function (path, i) {
+            var done = i < active, on = i === active;
+            path.classList.toggle('is-done', done);
+            path.classList.toggle('is-active', on);
+            path.style.strokeDashoffset = done ? 0 : on ? lens[i] * (1 - r) : lens[i];
+            dests[i].classList.toggle('is-on', done || (on && r >= 1));
+            dests[i].setAttribute('transform', 'translate(' + destXY[i][0] + ' ' + destXY[i][1] + ') scale(' + (k * 1.6).toFixed(3) + ')');
+        });
+        originG.setAttribute('transform', 'translate(' + origin[0] + ' ' + origin[1] + ') scale(' + (k * 1.8).toFixed(3) + ')');
+        glow.setAttribute('r', (110 * k).toFixed(2));
+
+        /* aircraft: arc-length position, heading from the path tangent */
+        var flying = active >= 0 && r > 0 && r < 1;
+        plane.classList.toggle('is-flying', flying);
+        if (flying) {
+            var L = lens[active] * r;
+            var p = routes[active].getPointAtLength(L);
+            var q = routes[active].getPointAtLength(Math.min(L + 1, lens[active]));
+            var ang = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+            plane.setAttribute('transform', 'translate(' + p.x.toFixed(2) + ' ' + p.y.toFixed(2) + ') rotate(' + ang.toFixed(1) + ') scale(' + (k * 1.25).toFixed(3) + ')');
+        }
+
+        /* arrival ripple, once per arrival */
+        var arrived = active >= 0 && r >= 1 ? active : -1;
+        if (arrived !== lastArrived) {
+            dests.forEach(function (d, i) { d.classList.toggle('is-arrived', i === arrived); });
+            lastArrived = arrived;
+        }
+
+        /* HTML labels */
+        function place(el, x, y, show) {
+            if (!el) return;
+            el.style.left = ((x - (cam.cx - cam.w / 2)) / k).toFixed(1) + 'px';
+            el.style.top = ((y - (cam.cy - ch / 2)) / k).toFixed(1) + 'px';
+            el.classList.toggle('is-on', show);
+        }
+        place(labels.origin, origin[0], origin[1], true);
+        keys.forEach(function (key, i) { place(labels[key], destXY[i][0], destXY[i][1], i === active ? r >= .98 : i < active); });
+
+        /* cards + map region + announcement */
+        btns.forEach(function (b, i) {
+            b.setAttribute('aria-pressed', i === active ? 'true' : 'false');
+            b.style.setProperty('--cj-p', i < active ? 1 : i === active ? r : 0);
+        });
+        if (active !== lastActive) {
+            lastActive = active;
+            root.dataset.active = active >= 0 ? keys[active] : '';
+            if (live) live.textContent = active >= 0 ? 'Journey ' + (active + 1) + ' of ' + N + ': Ethiopia to ' + names[active] : '';
+            root.dispatchEvent(new CustomEvent('romina:journey-change', { bubbles: true, detail: { index: active, key: active >= 0 ? keys[active] : null } }));
+        }
+    }
+
+    /* ---------- reduced motion: calm, static presentation ---------- */
+    if (reduce) {
+        measure();
+        var c = frames.all, h = c.w * H / W;
+        svg.setAttribute('viewBox', (c.cx - c.w / 2) + ' ' + (c.cy - h / 2) + ' ' + c.w + ' ' + h);
+        function select(i) {
+            root.dataset.active = keys[i];
+            btns.forEach(function (b, n) { b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
+            if (live) live.textContent = 'Ethiopia to ' + names[i];
+        }
+        btns.forEach(function (b, i) { b.addEventListener('click', function () { select(i); }); });
+        bindCountries(select);
+        return;
+    }
+
+    /* ---------- live mode ---------- */
+    root.classList.add('cj--live');
+    routes.forEach(function (r, i) { r.style.strokeDasharray = lens[i] + ' ' + lens[i]; });
+
+    function progress() {
+        var rect = root.getBoundingClientRect();
+        var total = root.offsetHeight - window.innerHeight;
+        return total > 0 ? clamp(-rect.top / total, 0, 1) * STAGES : 0;
+    }
+
+    /* intents: card, country, key and #hash all resolve here — scroll to the journey */
+    function goTo(i, instant) {
+        i = clamp(i, 0, N - 1);
+        var total = root.offsetHeight - window.innerHeight;
+        var y = root.getBoundingClientRect().top + window.pageYOffset + ((i + 1 + .8) / STAGES) * total;
+        window.scrollTo({ top: Math.round(y), behavior: instant ? 'auto' : 'smooth' });
+    }
+
+    btns.forEach(function (b, i) {
+        b.addEventListener('click', function () { goTo(i); });
+        b.addEventListener('keydown', function (e) {
+            var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+            if (e.key === 'Home') d = -N; if (e.key === 'End') d = N;
+            if (!d) return;
+            e.preventDefault();
+            var n = clamp(i + d, 0, N - 1);
+            btns[n].focus();
+            goTo(n);
+        });
+    });
+    bindCountries(goTo);
+
+    /* one rAF per scroll burst; skip all work while the section is off screen */
+    var ticking = false;
+    function frame() {
+        ticking = false;
+        var rect = root.getBoundingClientRect();
+        if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
+        render(progress());
+    }
+    function request() {                 /* rAF, with a timer fallback so a skipped frame can never stall updates */
+        if (ticking) return;
+        ticking = true;
+        var done = false;
+        function run() { if (!done) { done = true; frame(); } }
+        requestAnimationFrame(run);
+        setTimeout(run, 120);
+    }
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', function () { measure(); request(); });
+    window.addEventListener('load', function () { measure(); request(); });
+
+    measure();
+    render(progress());
+
+    var hashIndex = keys.indexOf(location.hash.slice(1));
+    if (hashIndex >= 0) goTo(hashIndex, true);
+
+    /* ---------- countries: hover names, tap selects the region ---------- */
+    function bindCountries(onPick) {
+        svg.querySelectorAll('.cj-c--dest').forEach(function (path) {
+            var i = keys.indexOf(path.dataset.region);
+            if (i < 0) return;
+            path.addEventListener('click', function () { onPick(i); });
+            path.addEventListener('pointermove', function (e) {
+                var s = stage.getBoundingClientRect();
+                tip.textContent = path.dataset.name + ' · ' + names[i];
+                tip.style.left = (e.clientX - s.left) + 'px';
+                tip.style.top = (e.clientY - s.top) + 'px';
+                tip.classList.add('is-on');
+            });
+            path.addEventListener('pointerleave', function () { tip.classList.remove('is-on'); });
+        });
+    }
+}());
+</script>
+@endif
+
 @endsection

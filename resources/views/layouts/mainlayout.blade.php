@@ -730,6 +730,48 @@ document.addEventListener('DOMContentLoaded', function () {
         }, { threshold: 0.2 }).observe(quote);
     }
 
+    /* hand-drawn coffee sketch: strokes draw in with scroll progress */
+    var sketch = document.getElementById('cofSketch');
+    if (sketch && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var skHost  = sketch.parentElement;
+        var skDraw  = [].slice.call(sketch.querySelectorAll('.sk, .sk-mask')).map(function (el) {
+            return { el: el, at: parseFloat(el.dataset.at), to: parseFloat(el.dataset.to) };
+        });
+        var skPop   = [].slice.call(sketch.querySelectorAll('.sk-bean, .sk-type, .sk-dot')).map(function (el) {
+            return { el: el, at: parseFloat(el.dataset.at) };
+        });
+        var skLast  = -1, skQueued = false;
+        sketch.classList.add('sk-live');
+
+        function skFrame() {
+            skQueued = false;
+            var r = skHost.getBoundingClientRect(), vh = window.innerHeight;
+            // 0 when the copy's top enters the lower edge, 1 when its bottom reaches 75% of the viewport
+            var p = (vh - r.top) / (r.height + vh * .25);
+            p = Math.max(0, Math.min(1, p));
+            if (Math.abs(p - skLast) < .002) return;
+            skLast = p;
+            skDraw.forEach(function (s) {
+                var k = Math.max(0, Math.min(1, (p - s.at) / ((s.to - s.at) || .01)));
+                s.el.style.strokeDashoffset = 1 - k;
+            });
+            skPop.forEach(function (s) {
+                var on = p >= s.at;
+                if (s.el.tagName === 'circle') s.el.style.opacity = on ? 1 : 0;
+                else s.el.classList.toggle('on', on);
+            });
+        }
+        function skQueue() {
+            if (skQueued) return;
+            skQueued = true;
+            requestAnimationFrame(skFrame);
+            setTimeout(function () { if (skQueued) skFrame(); }, 120);
+        }
+        window.addEventListener('scroll', skQueue, { passive: true });
+        window.addEventListener('resize', skQueue);
+        skFrame();
+    }
+
     /* stats count-up */
     var statsEl = document.getElementById('cofStats');
     if (statsEl) {
@@ -1466,6 +1508,88 @@ document.addEventListener('DOMContentLoaded', function () {
         var status = document.getElementById('ctcStatus');
         if (!form || !status) return;
 
+        var messageField = form.querySelector('#ctc_message');
+        var contactHeading = document.querySelector('#contact .ctc-display');
+        var nameField = form.querySelector('#ctc_name');
+        var fields = Array.from(form.querySelectorAll('.field'));
+
+        function fieldError(field) {
+            if (!field.value.trim()) {
+                if (field.name === 'name') return 'Please enter your name.';
+                if (field.name === 'email') return 'Please enter your email address.';
+                if (field.name === 'message') return 'Please enter a message.';
+            }
+            if (field.name === 'email' && field.validity.typeMismatch) {
+                return 'Please enter a valid email address.';
+            }
+            if (field.name === 'phone' && /[^0-9]/.test(field.value)) {
+                return 'Please enter numbers only for your phone number.';
+            }
+            return '';
+        }
+
+        function showFieldError(field, text) {
+            var error = document.getElementById(field.id + '_error');
+            error.textContent = text;
+            error.hidden = !text;
+            field.setAttribute('aria-invalid', text ? 'true' : 'false');
+        }
+
+        function sizeMessage() {
+            // Match the single-line input exactly, then grow only when content needs more room.
+            messageField.style.height = nameField.getBoundingClientRect().height + 'px';
+            var border = parseFloat(getComputedStyle(messageField).borderBottomWidth) || 0;
+            if (messageField.scrollHeight > messageField.clientHeight) {
+                messageField.style.height = (messageField.scrollHeight + border) + 'px';
+            }
+        }
+
+        function alignCompactForm() {
+            if (!contactHeading || !window.matchMedia('(min-width: 769px)').matches) {
+                form.style.removeProperty('--ctc-form-offset');
+                return;
+            }
+            // Adjust normal-flow padding; errors and message growth remain below the first row.
+            var inputBox = nameField.getBoundingClientRect();
+            var headingBox = contactHeading.getBoundingClientRect();
+            var paddingTop = parseFloat(getComputedStyle(form).paddingTop);
+            var offset = paddingTop + headingBox.top + headingBox.height / 2
+                - inputBox.top - inputBox.height / 2;
+            form.style.setProperty('--ctc-form-offset', Math.max(0, offset) + 'px');
+        }
+
+        messageField.addEventListener('input', sizeMessage);
+        fields.forEach(function (field) {
+            field.addEventListener('input', function () {
+                if (field.name === 'phone' && /[^0-9]/.test(field.value)) {
+                    var caret = field.value.slice(0, field.selectionStart).replace(/[^0-9]/g, '').length;
+                    field.value = field.value.replace(/[^0-9]/g, '');
+                    field.setSelectionRange(caret, caret);
+                }
+                if (field.getAttribute('aria-invalid') === 'true') {
+                    showFieldError(field, fieldError(field));
+                }
+                status.style.display = 'none';
+            });
+        });
+        window.addEventListener('resize', function () {
+            sizeMessage();
+            alignCompactForm();
+        });
+        form.addEventListener('reset', function () {
+            requestAnimationFrame(function () {
+                fields.forEach(function (field) { showFieldError(field, ''); });
+                status.style.display = 'none';
+                sizeMessage();
+            });
+        });
+        sizeMessage();
+        alignCompactForm();
+        if (document.fonts) document.fonts.ready.then(function () {
+            sizeMessage();
+            alignCompactForm();
+        });
+
         function fStr(key) {
             var loc = window.I18N_LOCALE || document.documentElement.lang || 'en';
             return (window.I18N && window.I18N[loc] && window.I18N[loc][key]) || key;
@@ -1474,14 +1598,16 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            var name    = (form.querySelector('[name="name"]').value    || '').trim();
-            var email   = (form.querySelector('[name="email"]').value   || '').trim();
-            var message = (form.querySelector('[name="message"]').value || '').trim();
-
-            if (!name || !email || !message) {
-                status.textContent   = fStr('form_err_required');
-                status.className     = 'f-status err';
-                status.style.display = 'block';
+            var firstInvalid = null;
+            fields.forEach(function (field) {
+                var error = fieldError(field);
+                showFieldError(field, error);
+                if (error && !firstInvalid) firstInvalid = field;
+            });
+            if (firstInvalid) {
+                status.textContent = '';
+                status.style.display = 'none';
+                firstInvalid.focus();
                 return;
             }
 

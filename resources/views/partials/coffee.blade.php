@@ -49,10 +49,10 @@
             <p class="mark tone-white">
                 <span class="mark-rule"></span>
                 <i aria-hidden="true"></i>
-                Romina Coffee, since 2009
+                Romina Coffee, Since 2009
             </p>
 
-            <h2 class="cof-display">Upholding the legacy of Ethiopian coffee</h2>
+            <h2 class="cof-display">Upholding the Legacy of Ethiopian Coffee</h2>
 
             <p class="cof-lead">
                 Ethiopian coffee is more than an export commodity. It is one of life's little
@@ -199,7 +199,7 @@
         <ol class="cof-stats" id="cofStats">
 
             <li>
-                <p class="cof-stat-n"><span class="cof-count" data-to="24">0</span>+</p>
+                <p class="cof-stat-n"><span class="cof-count" data-to="24">0</span><sup class="num-plus">+</sup></p>
                 <div>
                     <p class="cof-stat-l">Wet mill stations</p>
                     <p class="cof-stat-t">Located across all major coffee-growing regions, at advantageous altitudes.</p>
@@ -210,12 +210,12 @@
                 <p class="cof-stat-n"><span class="cof-count" data-to="6">0</span></p>
                 <div>
                     <p class="cof-stat-l">Coffee-growing regions</p>
-                    <p class="cof-stat-t">Sidamo, Limmu, Yirgachefe, Guji, Nekempte and Nansabo.</p>
+                    <p class="cof-stat-t">Sidamo, Limmu, Yirgacheffe, Guji, Neqemte and Nansabo.</p>
                 </div>
             </li>
 
             <li>
-                <p class="cof-stat-n"><span class="cof-count" data-to="3500">0</span>+</p>
+                <p class="cof-stat-n"><span class="cof-count" data-to="3500">0</span><sup class="num-plus">+</sup></p>
                 <div>
                     <p class="cof-stat-l">Tons of annual capacity</p>
                     <p class="cof-stat-t">Annual production capacity, in tons.</p>
@@ -223,7 +223,7 @@
             </li>
 
             <li>
-                <p class="cof-stat-n"><span class="cof-count" data-to="30000">0</span>+</p>
+                <p class="cof-stat-n"><span class="cof-count" data-to="30000">0</span><sup class="num-plus">+</sup></p>
                 <div>
                     <p class="cof-stat-l">Farmers Collaborated With</p>
                     <p class="cof-stat-t">Supplying beans of varied tastes and profiles.</p>
@@ -231,7 +231,7 @@
             </li>
 
             <li>
-                <p class="cof-stat-n"><span class="cof-count" data-to="6000+">0</span>+</p>
+                <p class="cof-stat-n"><span class="cof-count" data-to="6000+">0</span><sup class="num-plus">+</sup></p>
                 <div>
                     <p class="cof-stat-l">Specialty Farmer Partners</p>
                     <p class="cof-stat-t">Smallholders producing specialty coffee in the Oromia region.</p>
@@ -257,6 +257,8 @@
     <div class="cof-wrap cof-quote" id="cofQuote">
 
         <div class="cof-quote-copy">
+            {{-- hand-drawn coffee branch -> falling beans -> export sack, drawn on scroll --}}
+            @include('partials.coffee-sketch')
             <p class="cof-quote-text">"Spreading the Magic Across Continents."</p>
             <p class="cof-markets-label">Exporting to</p>
             <ul class="cof-markets">
@@ -292,7 +294,7 @@
     {{-- 4. JOURNEY: farm to global market --}}
     <div class="cof-wrap cof-journey" id="cofJourney">
 
-        <h3 class="cof-journey-h3">From farm to global market</h3>
+        {{-- <h3 class="cof-journey-h3">From Farm to Global Market</h3> --}}
 
         <ol class="cof-j-list">
             <span class="cof-j-line"><i></i></span>
@@ -305,12 +307,6 @@
             <li><span class="cof-j-dot"></span><span class="cof-j-n">07</span><span class="cof-j-name">Global market</span></li>
         </ol>
 
-        <div class="cof-j-sort">
-            <img loading="lazy" decoding="async"
-                src="{{ asset('images/coffee/sorting-line.webp') }}"
-                alt="Hand-sorting green coffee at a processing station"
-            >
-        </div>
 
     </div>
 
@@ -319,17 +315,26 @@
     <div class="cof-wrap cof-cols">
 
         <div>
-            <h4>Quality assurance</h4>
+            <figure class="cof-col-img">
+                <img loading="lazy" decoding="async" src="{{ asset('images/coffee-origin/04-processing-floor.webp') }}" alt="Green coffee in open sacks on the processing floor, with the quality team inspecting">
+            </figure>
+            <h4>Quality Assurance</h4>
             <p>Careful handpicking and rigorous cupping tests before any lot is approved for export.</p>
         </div>
 
         <div>
+            <figure class="cof-col-img">
+                <img loading="lazy" decoding="async" src="{{ asset('images/coffee/sorting-line.webp') }}" alt="Hand-sorting green coffee at a washing station">
+            </figure>
             <h4>Traceability</h4>
             <p>Farm-to-cup tracking, from the station where a lot is washed through to delivery.</p>
         </div>
 
         <div>
-            <h4>Farmers first</h4>
+            <figure class="cof-col-img">
+                <img loading="lazy" decoding="async" src="{{ asset('images/stock/coffee-farmer.webp') }}" alt="A coffee farmer checking the branches of his coffee tree" style="object-position: 72% 40%">
+            </figure>
+            <h4>Farmers First</h4>
             <p>Training and knowledge transfer, disease-resistant seedlings and shade trees, and fairer
                compensation through higher pricing and a post-sale share.</p>
         </div>

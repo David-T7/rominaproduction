@@ -15,7 +15,7 @@
                     Contact
                 </p>
 
-                <h2 class="ctc-display">Let's talk</h2>
+                <h2 class="ctc-display">Contact us</h2>
 
                 <div class="c-block">
                     <p class="c-label">Head office</p>
@@ -27,9 +27,9 @@
 
                 <div class="c-block">
                     <p class="c-label">Email</p>
-                    <a href="mailto:info@rominaplc.com">
+                    <a href="mailto:contact@rominaplc.com">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="c-icon" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        info@rominaplc.com
+                        contact@rominaplc.com
                     </a>
                 </div>
 
@@ -61,29 +61,34 @@
 
             <div class="f-row">
                 <div class="f">
+                    <input class="field" type="text" id="ctc_name" name="name" autocomplete="name" placeholder=" " required value="{{ old('name') }}" aria-describedby="ctc_name_error" aria-invalid="{{ $errors->has('name') ? 'true' : 'false' }}">
                     <label for="ctc_name">Name</label>
-                    <input class="field" type="text"  id="ctc_name"    name="name"    autocomplete="name">
+                    <p class="ctc-error" id="ctc_name_error" aria-live="polite" @unless($errors->has('name')) hidden @endunless>@error('name'){{ $message }}@enderror</p>
                 </div>
                 <div class="f">
+                    <input class="field" type="email" id="ctc_email" name="email" autocomplete="email" placeholder=" " required value="{{ old('email') }}" aria-describedby="ctc_email_error" aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}">
                     <label for="ctc_email">Email</label>
-                    <input class="field" type="email" id="ctc_email"   name="email"   autocomplete="email">
+                    <p class="ctc-error" id="ctc_email_error" aria-live="polite" @unless($errors->has('email')) hidden @endunless>@error('email'){{ $message }}@enderror</p>
                 </div>
             </div>
 
             <div class="f-row">
                 <div class="f">
+                    <input class="field" type="tel" id="ctc_phone" name="phone" autocomplete="tel" inputmode="numeric" pattern="[0-9]*" placeholder=" " value="{{ old('phone') }}" aria-describedby="ctc_phone_error" aria-invalid="{{ $errors->has('phone') ? 'true' : 'false' }}">
                     <label for="ctc_phone">Phone</label>
-                    <input class="field" type="tel"   id="ctc_phone"   name="phone"   autocomplete="tel">
+                    <p class="ctc-error" id="ctc_phone_error" aria-live="polite" @unless($errors->has('phone')) hidden @endunless>@error('phone'){{ $message }}@enderror</p>
                 </div>
                 <div class="f">
+                    <input class="field" type="text" id="ctc_subject" name="subject" placeholder=" " value="{{ old('subject') }}" aria-describedby="ctc_subject_error" aria-invalid="{{ $errors->has('subject') ? 'true' : 'false' }}">
                     <label for="ctc_subject">Subject</label>
-                    <input class="field" type="text"  id="ctc_subject" name="subject">
+                    <p class="ctc-error" id="ctc_subject_error" aria-live="polite" @unless($errors->has('subject')) hidden @endunless>@error('subject'){{ $message }}@enderror</p>
                 </div>
             </div>
 
-            <div class="f">
+            <div class="f ctc-message">
+                <textarea class="field" id="ctc_message" name="message" rows="1" placeholder=" " required aria-describedby="ctc_message_error" aria-invalid="{{ $errors->has('message') ? 'true' : 'false' }}">{{ old('message') }}</textarea>
                 <label for="ctc_message">Message</label>
-                <textarea class="field" id="ctc_message" name="message" rows="5"></textarea>
+                <p class="ctc-error" id="ctc_message_error" aria-live="polite" @unless($errors->has('message')) hidden @endunless>@error('message'){{ $message }}@enderror</p>
             </div>
 
             <div class="f-actions">

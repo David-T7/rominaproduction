@@ -144,7 +144,7 @@ return [
     'brand_coffee_slide_2_cap' => 'Hand-sorting',
 
     // Romina Imports
-    'brand_imports_kicker'      => 'Quality FMCG imported for local consumption',
+    'brand_imports_kicker'      => 'Quality FMCG imported for Local Consumption',
     'brand_imports_title'       => 'From Our Kitchens to the Market',
     'brand_imports_body'        => "What began as sourcing for Romina's own hospitality operations grew into a dedicated importer supplying the Ethiopian market.",
     'brand_imports_list_lbl'    => 'Categories',
@@ -159,7 +159,7 @@ return [
 
     // Jaquar World
     'brand_jaquar_kicker'      => 'Launched 2017 with Jaquar Group',
-    'brand_jaquar_title'       => 'The Complete Bathroom Solutions Destination',
+    'brand_jaquar_title'       => 'The Complete Bathroom and Lighting Solutions Destination',
     'brand_jaquar_body'        => 'Faucets, shower systems, sanitaryware, smart toilets, jacuzzi baths and architectural lighting, from Artize luxury to Jaquar Premium.',
     'brand_jaquar_list_lbl'    => 'Brands',
     'brand_jaquar_list_0'      => 'Artize (luxury)',

@@ -11,12 +11,12 @@
             ['img' => 'images/gallery/meskott-culinary/meskott_1.webp',              'cat' => 'Restaurants & Culinary', 'title' => 'Meskott Culinary',   'sub' => 'Diverse Experiences, Unified.',         'text' => 'Fine dining, and an unparalleled selection of International Cuisine', 'slug' => 'meskott-culinary'],
             ['img' => 'images/coffee/warehouse-stacks.webp',                         'cat' => 'Romina Coffee',          'title' => 'Romina Coffee',      'sub' => 'Legacy of Ethiopian Coffee.',   'text' => 'Sourced from six regions and exported across four continents since 2009.','slug' => 'romina-coffee'],
             ['img' => 'images/hero/imports-partners.webp',                            'cat' => 'Other Businesses',       'title' => 'Romina Imports',     'sub' => 'From our Partners to You.',  'text' => 'Quality FMCG imported and distributed across the Ethiopian market.','slug' => 'romina-imports', 'right' => true],
-            ['img' => 'images/gallery/jaquar-world/01-jaquar.webp',                  'cat' => 'Jaquar World',       'title' => 'Jaquar World',       'sub' => 'Complete Bathroom Solutions.',      'text' => 'Faucets, Showers, Sanitary-ware and more, from exquisite luxury to Jaquar Premium.','slug' => 'jaquar-world', 'right' => true],
+            ['img' => 'images/gallery/jaquar-world/01-jaquar.webp',                  'cat' => 'Jaquar World',       'title' => 'Jaquar World',       'sub' => 'Complete Bathroom & Lighting Solutions.',      'text' => 'Faucets, Showers, Sanitary-ware and more, from exquisite luxury to Jaquar Premium.','slug' => 'jaquar-world', 'right' => true],
         ];
         $heroTotal = 1 + count($brandSlides);
     @endphp
 
-    <section class="hero">
+    <section class="hero homepage-hero">
 
         <!-- Slides -->
         <div class="hero-slides">
@@ -24,9 +24,10 @@
             {{-- Slide 01 — Romina Group (no image for now) --}}
             <div class="hero-slide active">
 
-                <div class="hero-background" style="background: var(--deep-blue);"></div>
-
-                <div class="hero-overlay"></div>
+                <div class="hero-visuals" aria-hidden="true">
+                    <div class="hero-background" style="background: var(--deep-blue);"></div>
+                    <div class="hero-overlay"></div>
+                </div>
 
                 <div class="container hero-content">
 
@@ -58,12 +59,13 @@
             @foreach ($brandSlides as $s)
                 <div class="hero-slide">
 
-                    <div class="hero-background{{ !empty($s['right']) ? ' hero-background--right' : '' }}"
-                         style="background-image:
-                         url('{{ asset($s['img']) }}');">
+                    <div class="hero-visuals" aria-hidden="true">
+                        <div class="hero-background{{ !empty($s['right']) ? ' hero-background--right' : '' }}"
+                             style="background-image:
+                             url('{{ asset($s['img']) }}');">
+                        </div>
+                        <div class="hero-overlay"></div>
                     </div>
-
-                    <div class="hero-overlay"></div>
 
                     <div class="container hero-content">
 

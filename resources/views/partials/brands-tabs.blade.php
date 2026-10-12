@@ -126,7 +126,7 @@
         'imports' => [
             'name'      => 'Romina Imports',
             'tone'      => 'paper',
-            'kicker'    => 'Quality FMCG imported for local consumption',
+            'kicker'    => 'Quality FMCG imported for Local Consumption',
             'title'     => 'Connecting you directly to premium global products',
             'body'      => "What began as sourcing for Romina's own hospitality operations grew into a dedicated importer supplying the Ethiopian market.",
             'list'      => ['label' => 'Categories', 'items' => ['Pastas', 'Pastry ingredients', 'Dairy products', 'Edible oils', 'Rice']],
@@ -144,7 +144,7 @@
             'name'      => 'Jaquar World',
             'tone'      => 'light',
             'kicker'    => 'Launched 2017 with Jaquar Group',
-            'title'     => 'The Complete Bathroom Solutions Destination',
+            'title'     => 'The Complete Bathroom & Lighting Solutions Destination',
             'body'      => 'Faucets, shower systems, sanitaryware, smart toilets, jacuzzi baths and architectural lighting, from Artize luxury to Jaquar Premium.',
             'list'      => ['label' => 'Brands', 'items' => ['Jaquar Premium']],
             'locations' => [

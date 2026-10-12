@@ -139,6 +139,7 @@ return [
             'image'      => 'images/gallery/meskott-culinary/meskott_1.webp',
             'image_shot' => 'Meskott bar at night, backlit shelves',
             'hero_logo'  => 'images/brands/logos/meskott.png',   // shown large in place of the hero title
+            'theme'      => 'meskott',   // black page (see .bz-theme--meskott)
             'title'      => 'Your Evening, Elevated.',
             'body'       => [
                 'International cuisine led by talented chefs, paired with a curated selection of wines, spirits and classy cocktails.',
@@ -156,8 +157,8 @@ return [
                     // 'image' = the section background shown while this card is hovered
                     ['icon' => 'fa-utensils',             'name' => 'Fine Dining',           'image' => 'images/gallery/meskott-culinary/11-garden-table-set.webp'],
                     ['icon' => 'fa-globe',                'name' => 'International Cuisine', 'image' => 'images/gallery/meskott-culinary/12-glazed-salmon.webp'],
-                    ['icon' => 'fa-martini-glass-citrus', 'name' => 'Immersive Bar',         'image' => 'images/gallery/meskott-culinary/meskott_7.webp'],
-                    ['icon' => 'fa-music',                'name' => 'Live Band',           'image' => 'images/gallery/meskott-culinary/meskott_3.webp'],
+                    ['icon' => 'fa-martini-glass-citrus', 'name' => 'Immersive Bar',         'image' => 'images/gallery/romina-restaurants/09-romina-restaurant.webp'],
+                    ['icon' => 'fa-music',                'name' => 'Live Band',           'image' => 'images/news/jazz-0.webp'],
                 ],
             ],
             'gallery'    => [
@@ -384,7 +385,7 @@ return [
             'menu'       => 'Jaquar World Addis Ababa',
             'group'      => 'other',
             'theme'      => 'jaguar',   // white-dominant, small blue (see .bz-theme--jaguar)
-            'kicker'     => 'Launched 2017 with Jaquar Group',
+            'kicker'     => 'The Only Premier Partner with Jaquar Group',
             'intro'      => 'The complete bathroom and lighting solutions destination in Addis Ababa.',
             'badge'      => ['value' => '2017', 'label' => 'Launched With Jaquar Group'],
             'image'      => 'images/jaquar/vanity-round-mirror.webp',

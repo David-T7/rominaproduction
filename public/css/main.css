@@ -17030,3 +17030,125 @@ button {
     .ms-photo img { transition: none; }
     .ms-photo:hover img, .ms-photo:focus-visible img { transform: none; }
 }
+
+/* =====================================================
+   HOMEPAGE HERO — phones: counter, progress line and arrows on one row,
+   arrows square and evenly sized, clear of the chat launcher
+===================================================== */
+@media (max-width: 600px) {
+    .homepage-hero .hero-controls {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 14px;
+        padding-right: 68px;
+    }
+    .homepage-hero .slide-counter  { grid-area: 1 / 1; }
+    .homepage-hero .slide-progress { grid-area: 1 / 2; min-width: 0; }
+    .homepage-hero .slide-arrows {
+        position: static;
+        grid-area: 1 / 3;
+        display: flex;
+        gap: 8px;
+    }
+    .homepage-hero .slide-arrow {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        line-height: 1;
+    }
+    .homepage-hero .hero-link { width: fit-content; }
+}
+
+/* HOMEPAGE HERO — phones: copy sits closer together */
+@media (max-width: 600px) {
+    .homepage-hero .hero-category { margin-bottom: 16px; }
+    .homepage-hero .hero-content p { margin-top: 16px; }
+    .homepage-hero .hero-link { margin-top: 22px; }
+}
+
+/* FEATURED BRANDS — phones: the panel column follows the screen width
+   (it was sized to its content and ran off narrow screens) */
+@media (max-width: 900px) {
+    .brands .bp { grid-template-columns: minmax(0, 1fr); }
+    .brands .bp > *, .brands .gallery, .brands .bp-copy, .brands .gallery-bar { min-width: 0; max-width: 100%; }
+    .brands .gallery-bar .prog { min-width: 0; flex: 1 1 auto; }
+}
+@media (max-width: 420px) {
+    .brands .gallery-bar { flex-wrap: wrap; row-gap: 10px; }
+    .brands .gallery-bar .gallery-cap { flex: 1 0 100%; }
+    .brands .gallery-bar .arrows { margin-left: auto; flex: none; }
+}
+
+/* HOMEPAGE — phones: comfortable tap targets for small text links */
+@media (max-width: 600px) {
+    .bp-loc-phone,
+    .ctc a[href^="tel:"],
+    .ctc a[href^="mailto:"],
+    .ftr a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+    }
+    .find-us-section .leaflet-touch .leaflet-bar a { width: 40px; height: 40px; line-height: 40px; }
+}
+
+/* =====================================================
+   MESKOTT — black page: hero and every section on black,
+   light type, the site red kept as the accent
+===================================================== */
+.bz-theme--meskott { background: #000; color: rgba(255,255,255,.78); }
+.bz-theme--meskott .bz-hero,
+.bz-theme--meskott .bz-overview,
+.bz-theme--meskott .bz-highlights,
+.bz-theme--meskott .ms-gallery,
+.bz-theme--meskott .bz-locations,
+.bz-theme--meskott .bz-more { background: #000; color: rgba(255,255,255,.78); }
+.bz-theme--meskott .bz-hero::before,
+.bz-theme--meskott .bz-hero::after { display: none; }
+.bz-theme--meskott .bz-highlights.bz-highlights--photo { background: #000; }
+
+.bz-theme--meskott h1,
+.bz-theme--meskott h2,
+.bz-theme--meskott h3,
+.bz-theme--meskott h4,
+.bz-theme--meskott .bz-fact dt,
+.bz-theme--meskott .bz-loc-name,
+.bz-theme--meskott .bz-more-name { color: #fff; }
+.bz-theme--meskott p,
+.bz-theme--meskott .bz-fact dd,
+.bz-theme--meskott .bz-loc-desc,
+.bz-theme--meskott .bz-more-kicker,
+.bz-theme--meskott .ms-gallery-head > p { color: rgba(255,255,255,.72); }
+
+/* cards and outlined surfaces */
+.bz-theme--meskott .bz-loc,
+.bz-theme--meskott .bz-more-card,
+.bz-theme--meskott .bz-fact {
+    background: #0d0d0d;
+    border-color: rgba(255,255,255,.14);
+    box-shadow: none;
+}
+.bz-theme--meskott .bz-more-card:hover,
+.bz-theme--meskott .bz-loc:hover { background: #161616; border-color: rgba(255,255,255,.3); }
+.bz-theme--meskott .bz-more-arrow,
+.bz-theme--meskott .bz-loc-pin { color: #e3262e; }
+.bz-theme--meskott .bz-loc a,
+.bz-theme--meskott .bz-loc-link { color: #fff; border-color: rgba(255,255,255,.5); }
+
+/* gallery tiles on black */
+.bz-theme--meskott .ms-photo { background: #111; }
+.bz-theme--meskott .ms-photo-caption { background: rgba(0,0,0,.78); }
+.bz-theme--meskott .ms-photo:hover .ms-photo-caption { background: rgba(0,0,0,.92); }
+
+/* hairlines */
+.bz-theme--meskott hr,
+.bz-theme--meskott .bz-overview-grid,
+.bz-theme--meskott .bz-locslider { border-color: rgba(255,255,255,.12); }
+/* overview text (its own Meskott styles were dark-on-light) */
+.bz-theme--meskott .bz-overview--meskott-culinary .bz-overview-head h2 { color: #fff; }
+.bz-theme--meskott .bz-overview--meskott-culinary .bz-overview-body p:first-child { color: rgba(255,255,255,.9); }
+.bz-theme--meskott .bz-overview--meskott-culinary .bz-overview-body p { color: rgba(255,255,255,.66); }
+.bz-theme--meskott .bz-overview--meskott-culinary .bz-label { color: #e3262e; }
